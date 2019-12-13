@@ -52,13 +52,18 @@ export default {
       this.selected = selected;
     },
     generateName: function(view) {
-      let size = view.meta.show_name.length; 
+      let size = view.meta.show_name.length;
+      let last;
       return view.meta.show_name.map((word, idx) => {
-        if (idx === size - 1 ) {
-          return word
-        } else {
+        if (idx !== size - 1 ) {
           this.keyword_set.add(word);
           return `[${word}] `
+        } else {
+          last = word.split('.');
+          return `${word.replace(/(.+?)\./, '[$1] ').replace(/-/g, ' - ')}`
+          if (last.length > 1) {
+          }
+          return `${word.replace(/-/g, ' - ')}`
         } 
       }).join('');
     },

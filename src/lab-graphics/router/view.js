@@ -11,7 +11,7 @@ function importViews(requires) {
       meta: {
         route_string: fullPath,
         route_array: fullPath.replace(/\./g, '/').split('/').splice(1),
-        show_name: fullPath.replace(/_/g, ' ').replace(/\./g, '/').split('/').splice(1)
+        show_name: fullPath.replace(/_/g, ' ').split('/').splice(1)
       },
       component: () => requires(key)
     })
