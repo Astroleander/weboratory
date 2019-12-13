@@ -1,0 +1,32 @@
+.flex-container, .focus-center {
+  &.row { flex-direction: row; }
+  &.col, &.column { flex-direction: column; }
+  &.start-start { justify-content: start; align-content: flex-start; }
+
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.focus-center {
+  height: 100vh;
+  flex-direction: column;
+}
+
+.flex-container {
+  .card {
+    background: #FFF;
+    color: #333;
+    padding: 8px;
+    box-shadow: 2px 2px 5px #666;
+  }
+  .half {
+    width: 50%;
+  }
+  .full {
+    width: 100%;
+  }
+}
