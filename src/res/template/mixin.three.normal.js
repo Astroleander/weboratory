@@ -4,10 +4,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export const threeMixin = {
   created() {
-    console.log(`[astroleander][modules.utils] Created by three-template-mixin at 'modules/utils/...'`);
+    console.log(`[astroleander][res.template] Created by three-template-mixin at 'res/template/...'`);
   },
   mounted() {
     this._initCanvas();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.listeners['resize'])
   },
   data() {
     return {
@@ -20,7 +23,8 @@ export const threeMixin = {
         BACKGROUND_COLOR: 0xf0f0f0,
         SPOTLIGHT_COLOR: 0xffffff,
         HORIZON: -200,
-      } 
+      },
+      listeners: {}
     };
   },
   methods: {
@@ -73,18 +77,47 @@ export const threeMixin = {
 
       this.render();
     },
+    _resize() {
+      console.log('[template.mixin] [setResizeListener] resized!')
+      if (!this) return; /** <= just for security */
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    },
+    render() {
+      if (this.stats) { this.stats.update(); }
+      this.renderer.render(this.scene, this.camera);
+    },
+    /** 🔔 下面的方法是被混入的模板 *需要* 调用的初始化函数 */
     setRenderTarget(target) {
       target.appendChild(this.renderer.domElement);
       this.render();
     },
+    /** 🔔 下面的方法是被混入的模板可以调用的附带配置 */
     setStats(domElement) {
+      console.log('[template.mixin]', 'setStats')
       this.stats = new Stats();
       domElement.appendChild(this.stats.dom);
     },
-    render() {
-      if(this.stats) { this.stats.update(); }
-      this.renderer.render(this.scene, this.camera);
-    }
+    setResizeListener() {
+      console.log('[template.mixin]', 'setResizeListener')
+      let debounce = function (fn, wait) {
+        /** 使用闭包来保证 timer 唯一且存在。 在 vue 等生命周期和作用域管理良好的框架里, 我们可以用别的手段来做 */
+        let timer = null;
+        return function() {
+          if (timer) {
+            clearTimeout(timer);
+            timer = null;
+          }
+          timer = setTimeout(() => {
+            fn();
+          }, wait);
+        }
+      }
+      /** 我们实际上在 window 注册了事件，那么除非事件被删除或者 window 被销毁的情况以外, debounce 中的 timer 会随着 window 一直存在而存在 */
+      this.listeners['resize'] = debounce(this._resize, 500);
+      window.addEventListener('resize', this.listeners['resize']);
+    },
   },
 };
 
