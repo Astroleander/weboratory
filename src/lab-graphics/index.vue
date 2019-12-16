@@ -1,6 +1,6 @@
 <template>
   <div class='dashboard'>
-    <search-bar @updated='handleUpdated' :default-list='keyword_set'>
+    <search-bar @updated='handleUpdated' :default-list='getKeywordSet'>
     </search-bar>
     <div class='list'>
       <template v-for="(view, idx) in getListViewFilter">
@@ -34,6 +34,20 @@ export default {
     }
   },
   computed: {
+    getKeywordSet: function() {
+      console.log('[getKeywordSet] start!', this.view_list)
+      this.view_list.forEach(view => {
+        let size = view.meta.show_name.length;
+        return view.meta.show_name.forEach((word, idx) => {
+          if (idx !== size - 1 ) {
+            /** 文件路径的解析规则 */
+            this.keyword_set.add(word);
+          }
+        });
+      })
+      console.log('[getKeywordSet] done!', [...this.keyword_set])
+      return [...this.keyword_set]
+    },
     getListViewFilter: function() {
       /** copy result to filter seq */
       let result = this.view_list;
@@ -57,7 +71,6 @@ export default {
       return view.meta.show_name.map((word, idx) => {
         if (idx !== size - 1 ) {
           /** 文件路径的解析规则 */
-          this.keyword_set.add(word);
           return `[${word}] `
         } else {
           /** 文件名的解析规则 */

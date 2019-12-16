@@ -5,7 +5,7 @@
       <button class='tag delete' @click='clearTags'> + </button>
       <div class='tag-list'>
         <tag class='tag' 
-          v-for='(each, idx) in selected' :key="idx"
+          v-for='(each, idx) in selected' :key="each+idx"
           @click.native='onDelete(each)'>
           {{each}}
         </tag>
@@ -28,7 +28,11 @@ export default {
   },
   props: ['defaultList'],
   mounted() {
-    console.log(this.defaultList)
+  },
+  watch: {
+    defaultList(val) {
+      this.selector = val
+    }
   },
   data() {
     return {
