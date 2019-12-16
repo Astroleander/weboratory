@@ -56,14 +56,12 @@ export default {
       let last;
       return view.meta.show_name.map((word, idx) => {
         if (idx !== size - 1 ) {
+          /** 文件路径的解析规则 */
           this.keyword_set.add(word);
           return `[${word}] `
         } else {
-          last = word.split('.');
-          return `${word.replace(/(.+?)\./, '[$1] ').replace(/-/g, ' - ')}`
-          if (last.length > 1) {
-          }
-          return `${word.replace(/-/g, ' - ')}`
+          /** 文件名的解析规则 */
+          return `${word.replace(/(.+?)\./, '[$1] ').replace(/\./g, ' . ').replace(/-/g, ' - ')}`
         } 
       }).join('');
     },
