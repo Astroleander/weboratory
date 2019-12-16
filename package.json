@@ -4,7 +4,8 @@
   "description": "Web Laboratory",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --open --hot --config ./config/webpack.dev.js"
+    "hot": "webpack-dev-server --open --hot --config ./config/webpack.dev.js",
+    "dev": "webpack-dev-server --open --config ./config/webpack.dev.js"
   },
   "author": "astroleander",
   "license": "MIT",
