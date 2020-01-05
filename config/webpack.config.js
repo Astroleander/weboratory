@@ -16,6 +16,7 @@ module.exports = {
   entry: {
     dashboard: ['./src/dashboard/index.js'],
     graphics: ['./src/lab-graphics/index.js'],
+    algorithm: ['./src/lab-algorithm/index.js'],
     general: ['./config/weboratory.general.js'],
     config: ['./config/weboratory.config.js'],
     /**
@@ -38,6 +39,7 @@ module.exports = {
     alias: {
       '@': path.join(__dirname, '..', 'src'),
       '@graphics': path.join(__dirname, '..', 'src', 'lab-graphics'),
+      '@algorithm': path.join(__dirname, '..', 'src', 'lab-algorithm'),
     },
     modules: [path.resolve(__dirname, '../src'), '../node_modules']
   },
@@ -45,14 +47,21 @@ module.exports = {
     new HTMLWebPackPlugin({
       template: './src/lab-graphics/index.html',
       filename: './lab-graphics/index.html',
-      chunks: [ 'config', 'general', 'graphics'],
+      chunks: [ 'config', 'general', 'graphics' ],
+      hash: true,
+      minify: { collapseInlineTagWhitespace: true }
+    }),
+    new HTMLWebPackPlugin({
+      template: './src/lab-algorithm/index.html',
+      filename: './lab-algorithm/index.html',
+      chunks: [ 'config', 'general', 'algorithm' ],
       hash: true,
       minify: { collapseInlineTagWhitespace: true }
     }),
     new HTMLWebPackPlugin({
       template: './src/dashboard/index.html',
       filename: './index.html',
-      chunks: [ 'config', 'general', 'dashboard'],
+      chunks: [ 'config', 'general', 'dashboard' ],
       hash: true,
       minify: { collapseInlineTagWhitespace: true }
     }),
