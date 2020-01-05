@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
 import NavLayout from './layouts/NavLayout';
+import AlgoLayout from './layouts/AlgoLayout';
 
 export default class AppAlgorithm extends Component {
   render() {
@@ -9,8 +10,8 @@ export default class AppAlgorithm extends Component {
       <HashRouter>
         <Switch>
           <Route 
-            path='/algo'
-            component={NavLayout}
+            path='/algorithm'
+            component={AlgoLayout}
           />
           <Route
             path=''
