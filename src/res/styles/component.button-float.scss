@@ -67,7 +67,7 @@
     }
   }
 
-  #laboratory-algorithm & {
+  &.react-style {
     background: #212121;
 
     .cross {
@@ -83,7 +83,7 @@
     }
   }
 
-  #laboratory-graphics & {
+  &.vue-style {
     background: #41B883;
 
     &:active {

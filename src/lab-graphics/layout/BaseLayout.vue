@@ -2,7 +2,7 @@
   <article id='laboratory-graphics' class='content-container'>
     <router-view />
     <router-link to='/'>
-      <div class='exit floating-button'>
+      <div class='exit floating-button vue-style'>
         <p class='cross'> + </p>
       </div>
     </router-link>
