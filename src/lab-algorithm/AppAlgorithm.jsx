@@ -10,7 +10,7 @@ export default class AppAlgorithm extends Component {
       <HashRouter>
         <Switch>
           <Route 
-            path='/algorithm'
+            path='/snippet'
             component={AlgoLayout}
           />
           <Route

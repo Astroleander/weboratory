@@ -6,11 +6,11 @@ function importAll(prefix, r) {
     page_lists.push({
       key,
       r,
-      path: path.join(`algorithm${prefix? '/'+prefix: null}`, key)
+      path: path.join(`snippet${prefix? '/'+prefix: null}`, key)
     })
   });
 }
 
-importAll('leetcode', require.context('@/algorithm/leetcode', true, /.js$/, 'lazy'));
+importAll('leetcode', require.context('@/snippet/algorithm/leetcode', true, /.js$/, 'lazy'));
 
 export default page_lists

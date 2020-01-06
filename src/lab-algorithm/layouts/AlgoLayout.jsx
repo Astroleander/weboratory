@@ -8,7 +8,7 @@ export default class AlgoLayout extends React.Component {
     let path = pathname.substring(pathname.indexOf('/', 2));
     console.log(path)
     /** 👇 Webapck 使用实时 import 的时候经常需要限定范围 */
-    import('@/algorithm' + path).then(m => {
+    import('@/snippet/algorithm' + path).then(m => {
       let state = { path }
       Object.keys(m.default).forEach(propertyName => {
         /** copy each param */
@@ -88,7 +88,7 @@ class FloatButton extends React.Component {
   }
   render() {
     return (
-      <div onClick={this.handleBack} className='exit floating-button' id='react-common-layout-floating-button'>
+      <div onClick={this.handleBack} className='exit floating-button react-style'>
         <span className='cross'>+</span>
       </div>
     )
