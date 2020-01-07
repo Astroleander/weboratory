@@ -12,6 +12,8 @@
  * 👆 0 配置太傻了, 我们使用 /config 下的 webpack 配置指向各个入口
  */
 
+import './index.css'
+import './index.scss'
 // TODO: process.env 似乎是不可枚举的?
 if (process.env.NODE_ENV !== 'production') {
   console.log('[dashboard][index.js] Dev Mode!')
@@ -37,3 +39,17 @@ function animateBubble() {
 function animateWater() {
   let p = document.getElementsByClassName('waterline-in-flask')
 }
+
+function analyzeCatelog(r) {
+  let catelogue = document.getElementById('catelogue')
+  r.keys().forEach(link => {
+    let name = link.split('/')[1];
+    if (name === 'dashboard') return;
+    let el = document.createElement('a');
+    el.classList.add('link');
+    el.href = name + '/';
+    el.innerHTML = name.replace(/^\w*?-/, '').toUpperCase()
+    catelogue.appendChild(el)
+  });
+}
+analyzeCatelog(require.context('@/', true, /index.html$/, 'lazy'));

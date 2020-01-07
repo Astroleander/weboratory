@@ -1,6 +1,4 @@
-.flex-container {
-    &.row { flex-direction: row; }
-    &.col, &.column { flex-direction: column; }
+#catelogue,#logo,#laboratory {
     display: flex;
     justify-items: center;
     justify-content: center;
@@ -9,8 +7,13 @@
     flex-wrap: wrap;
 }
 
-.flex-container {
-    background: linear-gradient(270deg, #c93b49, #212121);
+#laboratory {
+    flex-direction: column;
+    height: 100vh;
+}
+
+#catelogue {
+    background: linear-gradient(270deg, #c93b49, #442121);
     background-size: 400% 400%;
     animation: gradient-animator 15s ease infinite;
     background-clip: text;
@@ -21,7 +24,7 @@
     // fill: #c93b49;
 //}
 
-@keyframes gradient-animator { 
+@keyframes gradient-animator {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}

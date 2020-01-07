@@ -1,5 +1,4 @@
 import React from 'react';
-import Dashboard from '@algorithm/views/Dashboard'
 
 export default class AlgoLayout extends React.Component {
   constructor(props) {
