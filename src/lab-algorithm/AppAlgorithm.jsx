@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Route, Link } from 'react-router-dom';
 
-import NavLayout from './layouts/NavLayout';
-import AlgoLayout from './layouts/AlgoLayout';
+import Routers from '@algorithm/router/algorithm'
 
-export default class AppAlgorithm extends Component {
+export default class Dashboard extends Component {
+  constructor() {
+    super();
+  }
   render() {
-    return (
-      <HashRouter>
-        <Switch>
-          <Route 
-            path='/snippet'
-            component={AlgoLayout}
-          />
-          <Route
-            path=''
-            component={NavLayout}
-          />
-        </Switch>
-      </HashRouter>
+    const renderedAlgoRouter = Routers.map((item, idx) => {
+      return (
+        <Link key={`${idx}`} to={item.path}>
+          <li>{item.path}</li>
+        </Link>
+      )
+    })
+    return(
+      <>
+        <div>Hello I'm Dashboard</div>
+        <article id='algorithm-dashboard'>
+          <HashRouter>
+            {renderedAlgoRouter}
+          </HashRouter>
+        </article>
+      </>
     )
   }
 }
