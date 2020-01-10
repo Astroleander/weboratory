@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Link } from 'react-router-dom';
 
-import Routers from '@algorithm/router/algorithm'
+import view_list from '@algorithm/router/algorithm'
 
 export default class Dashboard extends Component {
   constructor() {
     super();
   }
   render() {
-    const renderedAlgoRouter = Routers.map((item, idx) => {
+    const renderedAlgoRouter = view_list.map((item, idx) => {
       return (
         <Link key={`${idx}`} to={item.path}>
           <li>{item.path}</li>

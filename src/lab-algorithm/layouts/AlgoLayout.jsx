@@ -5,7 +5,6 @@ export default class AlgoLayout extends React.Component {
     super(props);
     let pathname = this.props.location.pathname;
     let path = pathname.substring(pathname.indexOf('/', 2));
-    console.log(path)
     /** 👇 Webapck 使用实时 import 的时候经常需要限定范围 */
     import('@/snippet/algorithm' + path).then(m => {
       let state = { path }
@@ -21,7 +20,6 @@ export default class AlgoLayout extends React.Component {
       })
       state['done'] = true;
       this.setState(state);
-      console.log(this.state)
     })
   }
   /** 在参数加载完成之前不进行渲染，即不执行 render 中的 f 函数，避免莫名其妙的错误 */
