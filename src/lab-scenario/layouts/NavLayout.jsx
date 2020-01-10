@@ -1,5 +1,5 @@
 import React from 'react';
-import Dashboard from '@algorithm/AppAlgorithm.jsx'
+import Dashboard from '@/lab-scenario/AppScenario.jsx'
 
 export default class NavLayout extends React.Component {
   render() {

@@ -17,6 +17,7 @@ module.exports = {
     dashboard: ['./src/dashboard/index.js'],
     graphics: ['./src/lab-graphics/index.js'],
     algorithm: ['./src/lab-algorithm/index.js'],
+    scenario: ['./src/lab-scenario/index.js'],
     general: ['./config/weboratory.general.js'],
     config: ['./config/weboratory.config.js'],
     /**
@@ -57,6 +58,15 @@ module.exports = {
       chunks: [ 'config', 'general', 'algorithm' ],
       hash: true,
       minify: { collapseInlineTagWhitespace: true }
+    }),
+    new HTMLWebPackPlugin({
+      template: './src/lab-scenario/index.html',
+      filename: './lab-scenario/index.html',
+      chunks: ['config', 'general', 'scenario'],
+      hash: true,
+      minify: {
+        collapseInlineTagWhitespace: true
+      }
     }),
     new HTMLWebPackPlugin({
       template: './src/dashboard/index.html',
