@@ -10,10 +10,14 @@
 #laboratory {
     flex-direction: column;
     height: 100vh;
+    width: 100vw;
 }
 
 #catelogue {
-    background: linear-gradient(270deg, #c93b49, #442121);
+    background: linear-gradient(270deg, 
+    #3f51b1 0%, #5a55ae 13%, #7b5fac 25%, #8f6aae 38%,
+    #a86aa4 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%
+    );
     background-size: 400% 400%;
     animation: gradient-animator 15s ease infinite;
     background-clip: text;
@@ -41,12 +45,12 @@
     }
     @media screen and (min-height: 600px) {
         padding: 15px 20px;
-        font-size: 1.6em;
+        font-size: 1.8em;
     }
     transition: padding 0.4s ease, font-size 0.4s ease;
     color: transparent;
     text-align: center;
-    font-size: 1.4em;
+    font-size: 2em;
     font-weight: thin;
     font-family: 'Roboto', sans-serif;
     text-decoration: none;
