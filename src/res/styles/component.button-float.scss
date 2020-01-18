@@ -3,6 +3,7 @@
   position: fixed;
   float: right;
   bottom: 20px;
+  border: none;
 
   z-index: 9999;
 
@@ -40,7 +41,6 @@
     margin: 0;
   }
 }
-
 .exit.floating-button {
   bottom: 20px;
   right: 20px;
