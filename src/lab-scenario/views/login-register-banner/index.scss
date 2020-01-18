@@ -1,0 +1,19 @@
+.board {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  .fragment {
+    width: 50%;
+    flex-shrink: 0;
+    height: 100%;
+    &.hud {
+      background: white;
+    }
+    &.show {
+      background: #7bc;
+    }
+  }
+}
