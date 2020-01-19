@@ -1,18 +1,33 @@
 import React, { Component } from 'react'
 
 import './index.scss'
+import Video from './middle-video'
+
+/**
+ * 
+ * - 字符太多的时候发生器的运行状态不是很好
+ * - 在 Pure React 中跨级调用组件并不是很开心的一件事
+ * - 也许有朝一日我们应该用 hooks 重写 react 组件
+ */
 
 const test_styled = {
-  width: `len0vw`,
-  height: 'len0vh',
+  width: `100vw`,
+  height: '100vh',
   background: 'grey'
 }
+
+const CONST_TITLE = [
+  "永遠存在の幻想郷",
+  "今は眠れの幻想郷"
+];
+
 export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       fwidth: window.innerWidth / 2,
-      directionRight: false 
+      directionRight: false,
+      videoTitle: CONST_TITLE[0]
     }
     this.move = this.move.bind(this)
   }
@@ -22,7 +37,9 @@ export default class Index extends Component {
         <article className='board' style={test_styled}>
           <section style={{width: `${this.state.fwidth}px`}} className='hud fragment'></section>
           <section className='show fragment'>
-
+            <Video 
+              title={this.state.videoTitle}
+              subtitle='Adventure of the Rakuen no Miko ~~ Reimu Hakurei no Bouken ~~'/>
           </section>
           <section className='hud fragment'></section>
         </article>
@@ -31,6 +48,9 @@ export default class Index extends Component {
     )
   }
   handleClickFloat() {
+    // this.videoRef.current.toggleName()
+    let newTitle = this.state.videoTitle === CONST_TITLE[0] ? CONST_TITLE[1] : CONST_TITLE[0];
+    this.setState({videoTitle: newTitle})
     this.directionRight = !this.directionRight;
     this.directionRight ? this.move(this.state.fwidth, 0) : this.move(this.state.fwidth, window.innerWidth/2)
   }
@@ -54,5 +74,6 @@ export default class Index extends Component {
       this.move(from, to, len * 1.1)
     })
   }
+
 }
 

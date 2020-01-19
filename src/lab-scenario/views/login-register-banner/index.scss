@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower&display=swap');
+
 .board {
   display: flex;
   flex-direction: row;
@@ -15,5 +17,94 @@
     &.show {
       background: #7bc;
     }
+  }
+}
+.middle-layer {
+  height: 100%;
+  position: relative;
+}
+.ytp-container {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  iframe {
+    flex-shrink: 0;
+  }
+}
+.float-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #ffb6b9CC;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .title {
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+
+    .title-text-animation {
+      position: relative;
+      color: transparent;
+      min-width: 0.9em;
+
+      &:nth-child(odd) {
+        animation: title-text-odd 30s ease infinite alternate;
+      }
+
+      &:nth-child(even) {
+        animation: title-text-even 30s ease infinite alternate;
+      }
+    }
+
+    .title-text-animation::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: white;
+      width: 0;
+      height: 1.2em;
+      transform: translate(-50%, -55%);
+    }
+
+    .title-text-animation.stage-0::before {
+      width: 1px;
+    }
+
+    .title-text-animation.stage-1 {
+      color: inherit;
+    }
+
+    .title-text-animation.stage-1::before {
+      display: none;
+    }
+
+    .title-text-animation.stage-2::before {
+      width: .9em
+    }
+  }
+  .sub-title {
+    font-family: 'Indie Flower', cursive;
+    color: white;
+    font-size: 1.2em;
+    transform: translateY(-0.4em);
+  }
+}
+
+@keyframes title-text-odd {
+  100% {
+    transform: translateY(10%);
+  }
+}
+@keyframes title-text-even {
+  100% {
+    transform: translateY(-10%);
   }
 }
