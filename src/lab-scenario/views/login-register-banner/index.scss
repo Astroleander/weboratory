@@ -92,9 +92,51 @@
   }
   .sub-title {
     font-family: 'Indie Flower', cursive;
-    color: white;
+    color: white;;
     font-size: 1.2em;
     transform: translateY(-0.4em);
+  }
+}
+
+.float.center {
+  left: 50%;
+  right: 50%;
+  top: 10%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  
+  .floating-button.toggle-button {
+    margin-top: 2em;
+    transform: translate(-50%);
+    position: static;
+    border-radius: 999px;
+    width: 8em;
+    height: 1.2em;
+    background: #ffb6b9;
+    &:active {
+      background: #666;
+    }
+
+    &.left-mode::before {
+      content: '';
+      width: 100%;
+      height: 200%;
+      top: -50%;
+      position: absolute;
+      background: white;
+      transition: all 2s ease-in-out;
+    }
+
+    &.right-mode::before {
+      content: '';
+      width: 100%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      position: absolute;
+      background: white;
+    }
   }
 }
 

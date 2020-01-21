@@ -27,8 +27,9 @@ export default class Index extends Component {
     this.state = {
       fwidth: window.innerWidth / 2,
       directionRight: false,
-      videoTitle: CONST_TITLE[0]
-    }
+      videoTitle: CONST_TITLE[0],
+      floatButtonMode: true
+    };
     this.move = this.move.bind(this)
   }
   render() {
@@ -43,14 +44,34 @@ export default class Index extends Component {
           </section>
           <section className='hud fragment'></section>
         </article>
-        <button onClick={this.handleClickFloat.bind(this)} className='floating-button float left bottom'></button>
+        <div 
+          className='float center'
+          onClick={this.handleClickFloat.bind(this)} 
+        >
+          {(()=>{
+            let ret = [];
+            for (const i in [1,2,3,4]) {
+              ret.push(
+                <button
+                  key={i}
+                  className={`floating-button toggle-button ${this.state.floatButtonMode? 'left-mode': 'right-mode'}`}>
+                </button>
+              )
+            }
+            return ret
+          })()}
+        </div>
       </>
     )
   }
   handleClickFloat() {
     // this.videoRef.current.toggleName()
     let newTitle = this.state.videoTitle === CONST_TITLE[0] ? CONST_TITLE[1] : CONST_TITLE[0];
-    this.setState({videoTitle: newTitle})
+    let newMode = !this.state.floatButtonMode
+    this.setState({
+      videoTitle: newTitle,
+      floatButtonMode: newMode
+    })
     this.directionRight = !this.directionRight;
     this.directionRight ? this.move(this.state.fwidth, 0) : this.move(this.state.fwidth, window.innerWidth/2)
   }
