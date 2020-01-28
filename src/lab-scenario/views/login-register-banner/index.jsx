@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import './index.scss'
-import Video from './middle-video'
+import Video from './Video'
 
 /**
  * 
