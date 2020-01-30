@@ -10,24 +10,20 @@ export default class Dashboard extends Component {
   render() {
     const renderedAlgoRouter = view_list.map((item, idx) => {
       return (
-        <article className='dashboard'>
-          <div className='list'>
-            <li>
-              <Link key={`${idx}`} to={item.path}>
-                {item.path}
-              </Link>
-            </li>
-          </div>
-        </article>
+        <li key={`${idx}`}>
+          <Link to={item.path}>
+            {item.path}
+          </Link>
+        </li>
       )
     })
     return(
       <>
         <div>Hello I'm Dashboard</div>
         <article id='algorithm-dashboard'>
-          <HashRouter>
-            {renderedAlgoRouter}
-          </HashRouter>
+            <HashRouter>
+              {renderedAlgoRouter}
+            </HashRouter>
         </article>
       </>
     )
