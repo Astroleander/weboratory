@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import './index.scss'
 import Video from './Video'
+import Register from './Register';
 
 /**
  * 
@@ -36,11 +37,14 @@ export default class Index extends Component {
     return (
       <>
         <article className='board' style={test_styled}>
-          <section style={{width: `${this.state.fwidth}px`}} className='hud fragment'></section>
+          <section style={{width: `${this.state.fwidth}px`}} className='hud fragment'>
+            <Register />
+          </section>
           <section className='show fragment'>
             <Video 
               title={this.state.videoTitle}
-              subtitle='Adventure of the Rakuen no Miko ~~ Reimu Hakurei no Bouken ~~'/>
+              subtitle='Adventure of the Rakuen no Miko ~~ Reimu Hakurei no Bouken ~~'
+            />
           </section>
           <section className='hud fragment'></section>
         </article>

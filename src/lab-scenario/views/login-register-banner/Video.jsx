@@ -31,7 +31,7 @@ export default class Video extends Component {
   }
   render() {
     return (
-      <div className="middle-layer">
+      <div className="video-layer">
         <div className="ytp-container">
           <iframe
             id="ytp-iframe"
