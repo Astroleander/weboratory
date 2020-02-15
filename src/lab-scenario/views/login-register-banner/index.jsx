@@ -5,7 +5,6 @@ import Video from './Video'
 import Register from './Register';
 
 /**
- * 
  * - 字符太多的时候发生器的运行状态不是很好
  * - 在 Pure React 中跨级调用组件并不是很开心的一件事
  * - 也许有朝一日我们应该用 hooks 重写 react 组件
@@ -33,12 +32,21 @@ export default class Index extends Component {
       floatButtonMode: true,
     };
     this.move = this.move.bind(this)
+    /** 我也不知道这种技术该叫什么, 不过我们通过这种嵌套的方式可以织入 this 这样想要的参数*/
+    window.onresize = e => (e, ctx) => {
+      console.log(ctx.state.directionRight)
+      if (!ctx.state.directionRight) {
+        ctx.setState({ fwidth: window.innerWidth / 2 })
+      }
+    }
   }
   render() {
     return (
       <>
         <article className='board' style={test_styled}>
-          <section style={{width: `${this.state.fwidth}px`}} className='hud fragment'>
+          <section className='hud fragment' 
+            style={{width: `${this.state.fwidth}px`}}
+          >
             <Register />
           </section>
           <section className='show fragment'>
@@ -47,7 +55,9 @@ export default class Index extends Component {
               subtitle={this.state.subTitle}
             />
           </section>
-          <section className='hud fragment'></section>
+          <section className='hud fragment'>
+
+          </section>
         </article>
         <div 
           className='float center'
@@ -55,7 +65,7 @@ export default class Index extends Component {
         >
           {(()=>{
             let ret = [];
-            for (const i in [1,2,3,4]) {
+            for (const i in [1,2,3]) {
               ret.push(
                 <button
                   key={i}
@@ -80,6 +90,15 @@ export default class Index extends Component {
     this.directionRight = !this.directionRight;
     this.directionRight ? this.move(this.state.fwidth, 0) : this.move(this.state.fwidth, window.innerWidth/2)
   }
+  /**
+   * 根据方向和步长, 获取下一步的位置, 并用这个位置刷新当前位置
+   * 这个过程
+   * 
+   * @param {Number} from 起始点
+   * @param {Number} to 结束点
+   * @param {Number} len 步长, 通过增加步长来实现 ease-in 的曲线
+   * TODO: Design real ease-in curve
+   */
   move(from, to, len = 30) {
     console.log(from, to);
     if (this.directionRight && from > 0) {
@@ -93,7 +112,7 @@ export default class Index extends Component {
         this.setState({ fwidth: window.innerWidth / 2 })
         from += len
     } else {
-      console.log('else!!')
+      console.log('move animation ends')
       return
     }
     requestAnimationFrame(() => {
