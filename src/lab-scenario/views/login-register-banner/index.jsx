@@ -28,8 +28,9 @@ export default class Index extends Component {
     this.state = {
       fwidth: window.innerWidth / 2,
       directionRight: false,
-      videoTitle: CONST_TITLE[0],
-      floatButtonMode: true
+      title: CONST_TITLE[0],
+      subTitle: 'Adventure of the Rakuen no Miko ~~ Reimu Hakurei no Bouken ~~',
+      floatButtonMode: true,
     };
     this.move = this.move.bind(this)
   }
@@ -42,8 +43,8 @@ export default class Index extends Component {
           </section>
           <section className='show fragment'>
             <Video 
-              title={this.state.videoTitle}
-              subtitle='Adventure of the Rakuen no Miko ~~ Reimu Hakurei no Bouken ~~'
+              title={this.state.title}
+              subtitle={this.state.subTitle}
             />
           </section>
           <section className='hud fragment'></section>
@@ -69,11 +70,11 @@ export default class Index extends Component {
     )
   }
   handleClickFloat() {
-    // this.videoRef.current.toggleName()
-    let newTitle = this.state.videoTitle === CONST_TITLE[0] ? CONST_TITLE[1] : CONST_TITLE[0];
+    /** 根据当前标题决定页面移动方向, 确定方向后使用 move 来开始移动 */
+    let newTitle = this.state.title === CONST_TITLE[0] ? CONST_TITLE[1] : CONST_TITLE[0];
     let newMode = !this.state.floatButtonMode
     this.setState({
-      videoTitle: newTitle,
+      title: newTitle,
       floatButtonMode: newMode
     })
     this.directionRight = !this.directionRight;
