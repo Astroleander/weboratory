@@ -30,13 +30,26 @@ export default class Video extends Component {
     clearInterval(this.state.stageTrigger);
   }
   render() {
+    let size = ['100%', '100%'];
+    if (window.innerWidth / 2 > window.innerHeight * 1.7778) {
+      size = [
+        '100%',
+        Math.max(window.innerHeight, window.innerWidth * 0.5625) + 'px',
+      ]
+    } else {
+      size = [
+        Math.max(window.innerHeight * 1.7778, window.innerWidth) + 'px',
+        '100%'
+      ]
+    }
+    
     return (
       <div className="video-layer">
         <div className="ytp-container">
           <iframe
             id="ytp-iframe"
-            width="177%"
-            height="100%"
+            width={size[0]}
+            height={size[1]}
             src="https://www.youtube.com/embed/O7Jt4s_a-Pg?autoplay=1&loop=1&mute=1&controls=0&fs=0&iv_load_policy=3&showinfo=0&rel=1&cc_load_policy=0&origin=localhost&playlist=O7Jt4s_a-Pg"
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
