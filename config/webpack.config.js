@@ -86,6 +86,7 @@ module.exports = {
   ],
   module: {
     rules: [
+      /** jsx loader */
       {
         test: /\.jsx?$/, // Match both .js and .jsx files
         exclude: /node_modules/,
@@ -96,10 +97,12 @@ module.exports = {
           }
         }
       },
+      /** vue loader */
       {
         test: /\.vue$/,
         use: 'vue-loader'
       },
+      /** html loader */
       {
         test: /\.html$/,
         use: {
@@ -107,10 +110,12 @@ module.exports = {
           options: { minimize: false }
         }
       },
+      /** css loader */
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
+      /** sass loader */
       {
         test: /\.s[a|c]ss$/,
         use: [
@@ -125,6 +130,7 @@ module.exports = {
           }
         ]
       },
+      /** img loader */
       {
         test: /\.(png|jpg|gif)$/,
         use: [
@@ -135,6 +141,7 @@ module.exports = {
         ]
       },
       /**
+       * svg loader
        * @date 2019/12/12
        * vue-svg-loader 会对 svg 进行压缩和优化，并不适用于对 svg 要进行深度操作的场合,
        * 所以我们采用另一个 svg 类库
@@ -143,12 +150,18 @@ module.exports = {
         test: /\.svg$/,
         loader: 'svg-inline-loader'
       },
+      /** font loader */
       {
         test: /\.(eot|woff|woff2|ttf)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      /** yaml loader */
+      {
+        test: /\.ya?ml/,
+        use: 'js-yaml-loader'
       }
     ]
   }
