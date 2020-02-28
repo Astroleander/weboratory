@@ -1,0 +1,52 @@
+start:
+  v: null
+  e: 
+    - [theme, 100]
+gender:
+  v: [gender, gender_common]
+  e: 
+gender_cyber:
+  v: [gender, gender_cyber]
+  e:
+theme:
+  v: null
+  e: # background
+    - [western, 10]
+    - [eastern, 0]
+    - [cyber, 3]
+# background:
+western:
+  v: null
+  e:
+    - [bk_w_historical, 100]
+    - [bk_w_fantasy, 100]
+    - [bk_general, 40]
+eastern:
+  v: null
+  e:
+    - [bk_e_historical]
+    - [bk_e_wuxia]
+cyber:
+  v: null
+  e:
+    - [bk_general, 10]
+    - [bk_cyber, 50]
+
+# class:
+bk_w_historical:
+  v: [class, class_w_historical]
+  e: 
+    - [gender, 1]
+bk_w_fantasy:
+  v: [class, class_w_fantasy]
+  e:
+    - [gender, 1]
+bk_general:
+  v: [class, class_general]
+  e:
+    - [gender, 1]
+bk_cyber:
+  v: [class, class_cyber]
+  e:
+    - [gender, 1]
+    - [gender_cyber, 2]

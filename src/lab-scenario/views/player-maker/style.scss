@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.trait {
+  &::after {
+    content: '、';
+  }
+  &:last-child::after {
+    content: '';
+  }
+}
+
+.stats-panel {
+  @media screen and (min-width: 750px)  {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+      .sub-panel-1, .sub-panel-2, .sub-panel-3 {
+        width: 33%;
+      }
+  }
+}
