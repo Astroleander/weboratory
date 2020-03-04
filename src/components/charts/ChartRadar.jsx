@@ -5,7 +5,7 @@ const testData = [
 ];
 
 const chartSize = 250;
-const numberOfScales = 9;
+const numberOfScales = 10;
 const middleOfChart = (chartSize / 2).toFixed(4);
 
 
@@ -39,6 +39,23 @@ const scale = (value) => (
     strokeWidth='0'
   />
 )
+
+const scaleArk = (columns, i) => {
+  return (<path
+    key={`shape-${i}`}
+    d={
+      pathDefinition(
+        columns.map(col => {
+          return polar(col.angle, i / numberOfScales * chartSize / 2);
+        }
+        ))
+    }
+    stroke={`#FFF`}
+    fill={i % 2 ? '#FAFAFA' : '#EAEAEA'}
+    fillOpacity=".9"
+  />)
+}
+
 const axis = () => (col, i) => {
   return <polyline
     key={`poly-axis-${i}`}
@@ -86,12 +103,7 @@ const caption = () => col => {
 const ChartRadar = props => {
   const groups = [];
   const scales = [];
-  
-  for (let i = numberOfScales; i > 0; i--) {
-    scales.push(scale(i));
-  }
-  groups.push(<g key={`scales`}>{scales}</g>);
-  
+    
   const dataset = props.data || testData
   const captions = Object.keys(testData[0])
   const columns = captions.map((key, i, all) => {
@@ -100,6 +112,13 @@ const ChartRadar = props => {
       angle: (Math.PI * 2 * i) / all.length
     }
   })
+
+  for (let i = numberOfScales; i > 0; i--) {
+    // scales.push(scale(i));
+    scales.push(scaleArk(columns, i));
+  }
+  groups.push(<g key={`scales`}>{scales}</g>);
+
   groups.push(<g key={`groups`}>{dataset.map(shape(columns))}</g>)
   groups.push(<g key={`group-axes`}>{columns.map(axis())}</g>)
   groups.push(<g key={`group-captions`}>{columns.map(caption())}</g>)
