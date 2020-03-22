@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const testData = [
+const data = [
   { '力量': 0.70, '体质': 0.80, '敏捷': 0.25, '智慧': 0.55, '感知': 0.81, '魅力': 0.99 },
 ];
 
@@ -65,7 +65,7 @@ const axis = () => (col, i) => {
   />
 }
 
-const shape = columns => (chartData, i) => {
+const shape = (columns, color) => (chartData, i) => {
   return (
   <path 
     key={`shape-${i}`}
@@ -77,8 +77,8 @@ const shape = columns => (chartData, i) => {
         }
       ))
     }
-    stroke={`#edc951`}
-    fill={`#edc951`}
+    stroke={color}
+    fill={color}
     fillOpacity=".5"
     />
   )
@@ -101,11 +101,14 @@ const caption = () => col => {
 }
 
 const ChartRadar = props => {
+  console.log(props)
+
   const groups = [];
   const scales = [];
     
-  const dataset = props.data || testData
-  const captions = Object.keys(testData[0])
+  const color = props.color || `#edc951`
+  const dataset = props.data || data
+  const captions = Object.keys(data[0])
   const columns = captions.map((key, i, all) => {
     return {
       key,
@@ -119,7 +122,7 @@ const ChartRadar = props => {
   }
   groups.push(<g key={`scales`}>{scales}</g>);
 
-  groups.push(<g key={`groups`}>{dataset.map(shape(columns))}</g>)
+  groups.push(<g key={`groups`}>{dataset.map(shape(columns, color))}</g>)
   groups.push(<g key={`group-axes`}>{columns.map(axis())}</g>)
   groups.push(<g key={`group-captions`}>{columns.map(caption())}</g>)
   return (

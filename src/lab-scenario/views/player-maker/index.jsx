@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import PlayerGenerator from './PlayerGenerator'
+import PlayerGenerator, { defaultSeed } from './PlayerGenerator'
 import PlayerDigital from "./PlayerDigital";
 import PlayerList from "./PlayerList";
 
@@ -9,15 +9,16 @@ import './style.scss'
 export class PlayerMaker extends Component {
   constructor(props) {
     super(props);
+    console.log(defaultSeed)
     this.state = {
-      p: 1
+      seed: defaultSeed
     }
   }
   render() {
     return (
       <article className='container'>
-        <PlayerGenerator onClick={e => setTimeout(e=>this.setState({p: 1}), 0)}></PlayerGenerator>
-        <PlayerDigital n={this.state.p}></PlayerDigital>
+        <PlayerGenerator onClick={e => setTimeout(() => this.setState({seed: e}), 0)}></PlayerGenerator>
+        <PlayerDigital seed={this.state.seed}></PlayerDigital>
         <PlayerList></PlayerList>
       </article>
     );
