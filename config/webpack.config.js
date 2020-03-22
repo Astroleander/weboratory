@@ -132,7 +132,7 @@ module.exports = {
       },
       /** img loader */
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|obj)$/,
         use: [
           {
             loader: 'url-loader',
