@@ -1,0 +1,17 @@
+@import './layout.scss';
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+.title {
+  font-family: 'Raleway', sans-serif;
+}
+
+#logo-mark { font-size: 1.2em; font-weight: bolder; }
+#piece-name { font-size: 2.0em; font-weight: bolder; }
+#piece-description {
+  max-width: 30vw;
+  line-height: 1.15em;
+  z-index: 1;
+  }
+
+canvas {
+  outline: none;
+}

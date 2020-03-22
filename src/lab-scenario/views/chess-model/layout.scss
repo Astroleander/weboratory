@@ -1,0 +1,56 @@
+@for $i from 0 through 32 {
+  .row-#{$i} {
+    // float: left;
+    position: absolute;
+    left: $i/32 * 100#{vw};
+  }
+
+  .row-reverse-#{$i} {
+    position: absolute;
+    right: $i/32 * 100#{vw};
+  }
+}
+
+@for $i from 0 through 16 {
+  .col-#{$i} {
+    position: absolute;
+    top: $i/16 * 100#{vh};
+  }
+
+  .col-reverse-#{$i} {
+    position: absolute;
+    bottom: $i/16 * 100#{vh}
+  }
+}
+
+.row-center {
+  margin: 0 auto;
+  width: 20%;
+}
+
+#chess-hud {
+  pointer-events: none;
+  overflow-x: hidden;  
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  * {
+    pointer-events: auto;
+  }
+}
+
+#chess-model {
+  position: absolute;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  #piece-3d {
+    pointer-events: auto;
+  }
+}
