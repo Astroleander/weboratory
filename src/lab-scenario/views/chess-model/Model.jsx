@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Vector3 } from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const shiftPosition = (start, end) => {
   return start / 2 + end / 2
