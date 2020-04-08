@@ -15,3 +15,35 @@
 canvas {
   outline: none;
 }
+#piece-box-container {
+  height: 12rem;
+  width: 18rem;
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  #piece-box {
+    position: relative;
+    &::before {
+      content: '';
+      position: fixed;
+      background: linear-gradient(90deg,#FFF 0, transparent 0.8em, #FFF 100%);
+      width: 18rem;
+      height: 12rem;
+      pointer-events: none;
+    }
+    .box {
+      width: 10rem;
+      height: 10rem;
+      margin: 0 .8rem 0 0.8em;
+      border-radius: 16px;
+      outline: none;
+      &:nth-child(odd) {
+        background-color: #EAEAEA;
+      }
+      &:nth-child(even) {
+        background-color: #212121;
+      }
+    }
+
+  }
+}
