@@ -8,6 +8,17 @@ Divide into 4 part:
 - graphics (vue)
 - navigator
 
+# Run
++ dependics:
+```
+node 8.6+
+```
++ script:
+```
+npm install
+npm run dev
+```
+and project runs on [localhost:80](http://localhost/)
 # Resource
 ## Matcaps
 https://www.pixelfondue.com/blog/30matcaps, *Available until 2019/12/12*.
