@@ -10,11 +10,13 @@ import CONFIG from './config'
 export class Gallery extends Component {
   constructor(props) {
     super(props);
-    this.piece = CONFIG.pieces[0];
-    console.log(this.piece)
+    this.state = {
+      piece: CONFIG.pieces[0]
+    }
     this.dragStart = this.dragStart.bind(this);
     this.draging = this.draging.bind(this);
     this.dragEnd = this.dragEnd.bind(this);
+    this.handlePieceChanged = this.handlePieceChanged.bind(this);
     this.piecebox = React.createRef();
   }
   
@@ -27,10 +29,10 @@ export class Gallery extends Component {
           <div id='menu' className='title row-reverse-1 col-1'>menu</div>
 
           <div id='piece-name' className='title row-2 col-5'>
-            {this.piece && this.piece.name}
+            {this.state.piece && this.state.piece.name}
           </div>
           <div id='piece-description' className='row-2 col-6'>
-            {this.piece && this.piece.describe}
+            {this.state.piece && this.state.piece.describe}
           </div>
           <div id='piece-wiki' className='row-2 col-7'>wiki</div>
           <div id='piece-box-container' ref={this.piecebox} className='row-reverse-2 col-reverse-2'
@@ -40,15 +42,27 @@ export class Gallery extends Component {
             >
             {/* {this.buttonList()} */}
             <div id='piece-box'>
-              <ButtonList></ButtonList>
+              <ButtonList onPieceSelected={e => this.handlePieceChanged(e)}></ButtonList>
             </div>
           </div>
         </section>
         <section id='chess-model'>
-          <div id='piece-3d' className='row-middle'><Model></Model></div>
+          <div id='piece-3d' className='row-middle'>
+            <Model 
+              piece={ this.state.piece }
+              key={ this.state.piece.name }
+            >  
+            </Model>
+            </div>
         </section>
       </>
     );
+  }
+  handlePieceChanged(p) {
+    console.log('[this]', this)
+    this.setState({
+      piece: p
+    })
   }
 
   dragStart(e) {
@@ -94,11 +108,11 @@ function createModel(piecename = 'Queen.glb', idx = 0) {
     loader.setPath('../src/res/assets/obj/');
     loader.load(`${piecename}.glb`, (gltf) => {
       box = new THREE.Box3().setFromObject(gltf.scene);
-      console.log(box)
+      // console.log(box)
       box.getCenter(gltf.scene.position);
-      console.log(box)
+      // console.log(box)
       gltf.scene.position.multiplyScalar(-1);
-      console.log(gltf.scene)
+      // console.log(gltf.scene)
       gltf.scene.traverse((child) => {
         if (child instanceof THREE.Mesh) {
           child.material = material;
@@ -110,47 +124,53 @@ function createModel(piecename = 'Queen.glb', idx = 0) {
     })
   })
 }
+/** 函数组件是无状态的, 这里要检查是否更新渲染不能用函数形 */
+class ButtonList extends Component {
+  shouldComponentUpdate() {
+    /** 禁止重绘按钮 */
+    return false;
+  }
+  render () {
+    return (
+      CONFIG.pieces.map((piece, idx) => {
+        const width = rem(10)
+        const height = rem(10)
 
-function ButtonList () {
-  return (
-    CONFIG.pieces.map((piece, idx) => {
-      const width = rem(10)
-      const height = rem(10)
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(45, width/height, .1, 200);
-    
-      camera.position.y = -18;
-      camera.lookAt(new THREE.Vector3(0, 0, 0))
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setClearColor('#FFFFFF', 0);
-      renderer.render(scene, camera);
-      renderer.setSize(width, height);
-
-      createModel(piece.name, idx).then(model => {
-        scene.add(model)
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, width/height, .1, 200);
+      
+        camera.position.y = -18;
+        camera.lookAt(new THREE.Vector3(0, 0, 0))
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setClearColor('#FFFFFF', 0);
         renderer.render(scene, camera);
-      })
+        renderer.setSize(width, height);
 
-      let ele = <Box
-        // style={width, height}
-        element={renderer.domElement}
-        key={piece.name}
-      ></Box>;
-      return ele
-    }
+        createModel(piece.name, idx).then(model => {
+          scene.add(model)
+          renderer.render(scene, camera);
+        })
+
+        let ele = <Box
+          element={renderer.domElement}
+          key={piece.name}
+          piece={piece}
+          onSelected={e => this.props.onPieceSelected(piece)}
+        ></Box>;
+        return ele
+      }
+      )
     )
-  )
+  }
 }
-
 class Box extends Component {
   componentDidMount() {
-    console.log(this.mount)
     this.mount.appendChild(this.props.element)
   }
   render() {
     return (
       <button
+        onClick={ this.props.onSelected }
         className='box'
         ref={(mount) => { this.mount = mount }}
       />
