@@ -2,17 +2,25 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-
+console.log('???')
 const shiftPosition = (start, end) => {
   return start / 2 + end / 2
 }
+const MATCAPS = require.context('@/res/assets/textures/matcaps', false, /\.png$|\.jpg$/, 'lazy').keys()
+  .map(each => `src/res/assets/textures/matcaps${each.slice(1)}`);
 
 class Model extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      piece: props.piece,
+      model: new THREE.Group()
+    }
+  }
   componentDidMount() {
     const width = this.mount.clientWidth;
     const height = this.mount.clientHeight;
     this.initialCanvas(width, height);
-
   }
   componentWillUnmount() {
     this.stop();
@@ -45,8 +53,6 @@ class Model extends Component{
     // controls.addEventListener('change', this.render);
   }
   getMatcaps() {
-    const MATCAPS = require.context('@/res/assets/textures/matcaps', false, /\.png$|\.jpg$/, 'lazy').keys()
-      .map(each => `src/res/assets/textures/matcaps${each.slice(1)}`);
     /** 使用 manager 可以触发回调 */
     // const manager = new THREE.LoadingManager(e => this.animate(this));
     // const loader = new THREE.TextureLoader(manager);
@@ -57,7 +63,8 @@ class Model extends Component{
     })
     return matcap;
   }
-  createModel(piecename = 'Queen.glb') {
+  createModel(piecename = this.state.piece.file) {
+    console.log(this.createModel)
     return new Promise(r => {
       /** material */
       let matcap = this.getMatcaps();
@@ -96,9 +103,10 @@ class Model extends Component{
             child.material = this.material;
           }
         });
-        this.model = new THREE.Group();
-        this.model.add(gltf.scene);
-        r(this.model)
+        this.setState
+        // this.model = new THREE.Group();
+        this.state.model.add(gltf.scene);
+        r(this.state.model)
       })
     })
   }
@@ -108,10 +116,11 @@ class Model extends Component{
     }
   }
   stop() {
+    console.log('stoped')
     cancelAnimationFrame(this.frameId);
   }
   animate(ctx) {
-    this.model.rotation.z += 0.01
+    this.state.model.rotation.z += 0.01
     ctx.renderScene();
     ctx.frameId = window.requestAnimationFrame(() => ctx.animate(ctx));
   }
