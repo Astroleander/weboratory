@@ -1,5 +1,4 @@
 import React from 'react';
-
 export default class AlgoLayout extends React.Component {
   constructor(props) {
     super(props);
@@ -8,6 +7,7 @@ export default class AlgoLayout extends React.Component {
     /** 👇 Webapck 使用实时 import 的时候经常需要限定范围 */
     import('@/snippet/algorithm' + path).then(m => {
       let state = { path }
+      console.log(m)
       Object.keys(m.default).forEach(propertyName => {
         /** copy each param */
         state[propertyName] = m.default[propertyName]
@@ -33,7 +33,9 @@ export default class AlgoLayout extends React.Component {
       {(
         <div>
           <pre>{key && String(this.state[key])}</pre>
+          <hr />
           {key && this.state[key] && this.state['inputs'] && this.state['inputs_type'] && this.renderArgs()}
+          <hr />
           {key && this.state[key] && this.state['inputs'] && this.renderResults(key)}
         </div>
       )}
@@ -44,12 +46,20 @@ export default class AlgoLayout extends React.Component {
   renderArgs() {
     return this.state['inputs'].map((item, idx) => {
       return (
-        <input
-          key={`${idx}`}
-          value={this.state['inputs'][idx]}
-          onChange={(e) => this.handleArgChange(e.target.value, idx)}
-          disabled={(this.state['inputs_type'][idx] === 'number' || this.state['inputs_type'][idx] === 'string' ? '' : 'disabled')}
-        />
+        <div key={`${idx}`} className='float-label-container'>
+          <input
+            id={`args-${idx}`}
+            value={this.state['inputs'][idx]}
+            onChange={(e) => this.handleArgChange(e.target.value, idx)}
+            disabled={(this.state['inputs_type'][idx] === 'number' || this.state['inputs_type'][idx] === 'string' ? '' : 'disabled')}
+          />
+          <label htmlFor={`arg-${idx}`}>
+            <blockquote>
+            {typeof this.state['inputs'][idx] === 'object' ?
+              JSON.stringify(this.state['inputs'][idx]) : this.state['inputs'][idx]}
+          </blockquote>
+          </label>
+        </div>
       )
     });
   }
