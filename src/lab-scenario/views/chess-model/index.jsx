@@ -32,13 +32,15 @@ export class Gallery extends Component {
             {this.state.piece && this.state.piece.name}
           </div>
           <div id='piece-description' className='row-2 col-6'>
-            {this.state.piece && this.state.piece.describe}
+            {this.state.piece && this.state.piece.proverb}
           </div>
           <div id='piece-wiki' className='row-2 col-7'>wiki</div>
           <div id='piece-box-container' ref={this.piecebox} className='row-reverse-2 col-reverse-2'
             onMouseDown={this.dragStart} 
             onMouseMove={this.draging}
             onMouseUp={this.dragEnd}
+            /** 离开滚动区域需要结算当前结果不然会重现 gbf 选属性的那个经典 bug */
+            onMouseLeave={this.dragEnd}
             >
             {/* {this.buttonList()} */}
             <div id='piece-box'>
@@ -50,7 +52,9 @@ export class Gallery extends Component {
           <div id='piece-3d' className='row-middle'>
             <Model 
               piece={ this.state.piece }
-              key={ this.state.piece.name }
+              ref={instance => { this.model = instance }}
+              /** [⛔ Abandoned] 我们并不希望组件级别的 patch, 更何况这是一个 webGL 组件 */
+              // key={ this.state.piece.name }
             >  
             </Model>
             </div>
@@ -59,10 +63,14 @@ export class Gallery extends Component {
     );
   }
   handlePieceChanged(p) {
-    console.log('[this]', this)
-    this.setState({
-      piece: p
+    /** state may doesn't refresh immediately */
+    this.setState(prestate => {
+      prestate.piece = p;
+      return p
     })
+    /** dispatch */
+    // this.model.handleChangeModel(this.state.piece);
+    this.model.handleChangeModel(p);
   }
 
   dragStart(e) {
@@ -170,7 +178,13 @@ class Box extends Component {
   render() {
     return (
       <button
-        onClick={ this.props.onSelected }
+        onMouseDown={()=> this.stamp = Date.now()}
+        onClick={()=>{
+          /** 需要过滤 Drag 导致的假点击 */
+          if (Date.now() - this.stamp < 150) {
+            return this.props.onSelected()
+          }
+        }}
         className='box'
         ref={(mount) => { this.mount = mount }}
       />
