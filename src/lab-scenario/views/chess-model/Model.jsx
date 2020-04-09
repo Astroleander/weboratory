@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-console.log('???')
 const shiftPosition = (start, end) => {
   return start / 2 + end / 2
 }
@@ -17,6 +16,15 @@ class Model extends Component{
       model: new THREE.Group()
     }
   }
+  /** [⛔ Abandoned]
+   * 父组件 setState 无法及时更新, 在这儿接受也来不及
+   * 决定直接在回调里更新 state 
+   */
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   return {
+  //     piece: nextProps.piece
+  //   }
+  // }
   componentDidMount() {
     const width = this.mount.clientWidth;
     const height = this.mount.clientHeight;
@@ -63,12 +71,32 @@ class Model extends Component{
     })
     return matcap;
   }
+  /** fire by parent */
+  handleChangeModel(piece) {
+    if (piece.file !== this.state.piece.file) {
+      /** [ progress step in 3] 1. clear model */
+      this.scene.remove(this.state.model);
+      /** [ progress step in 3] 2. set new state */
+      this.setState({
+        model: new THREE.Group(),
+        piece,
+      })
+      /** [ progress step in 3] 3. create new model */
+      setTimeout(
+        () => {
+          this.createModel(piece.file).then(model => {
+            this.scene.add(model)
+            this.start();
+          });
+        }, 0
+      )
+    }
+  }
   createModel(piecename = this.state.piece.file) {
-    console.log(this.createModel)
     return new Promise(r => {
       /** material */
       let matcap = this.getMatcaps();
-      this.material = new THREE.MeshMatcapMaterial({
+      let material = new THREE.MeshMatcapMaterial({
         matcap,
         flatShading: false
       })
@@ -87,12 +115,12 @@ class Model extends Component{
         /** 创建 bound box */
         box = new THREE.Box3().setFromObject(gltf.scene);
         /** bound box */
-        console.log(box)
+        // console.log(box)
         box.getCenter(gltf.scene.position);
-        console.log(box)
+        // console.log(box)
         /** 点翻转 gltf.scene, 和原位置中心对称 */
         gltf.scene.position.multiplyScalar(-1);
-        console.log(gltf.scene)
+        // console.log(gltf.scene)
         // gltf.scene.position.set(
         //   -shiftPosition(box.min.x, box.max.x),
         //   -shiftPosition(box.min.y, box.max.y),
@@ -100,10 +128,9 @@ class Model extends Component{
         // );
         gltf.scene.traverse((child) => {
           if (child instanceof THREE.Mesh) {
-            child.material = this.material;
+            child.material = material;
           }
         });
-        this.setState
         // this.model = new THREE.Group();
         this.state.model.add(gltf.scene);
         r(this.state.model)
