@@ -12,7 +12,7 @@ export default class Dashboard extends Component {
       return (
         <li key={`${idx}`}>
           <Link to={item.path}>
-            {item.path}
+            {item.path.replace(/\//g, ' - ')}
           </Link>
         </li>
       )
