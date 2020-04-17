@@ -1,5 +1,5 @@
 <template>
-  <div class='dashboard'>
+  <div class='home'>
     <search-bar @updated='handleUpdated' :default-list='getKeywordSet'>
     </search-bar>
     <div class='list'>

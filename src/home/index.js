@@ -16,7 +16,7 @@ import './index.css'
 import './index.scss'
 // TODO: process.env 似乎是不可枚举的?
 if (process.env.NODE_ENV !== 'production') {
-  console.log('[dashboard][index.js] Dev Mode!')
+  console.log('[home][index.js] Dev Mode!')
 }
 
 animateBubble()
@@ -44,7 +44,7 @@ function analyzeCatelog(r) {
   let catelogue = document.getElementById('catelogue')
   r.keys().forEach(link => {
     let name = link.split('/')[1];
-    if (name === 'dashboard') return;
+    if (name === 'home') return;
     let el = document.createElement('a');
     el.classList.add('link');
     el.href = name + '/';
