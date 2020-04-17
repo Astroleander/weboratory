@@ -3,14 +3,14 @@ import { HashRouter, Route, Link } from 'react-router-dom';
 
 import view_list from './router'
 
-export default class Dashboard extends PureComponent {
+export default class Home extends PureComponent {
   constructor() {
     super();
   }
   render() {
     return (
       <>
-        <article id='scenario-dashboard'>
+        <article id='scenario-home' className='home'>
           <HashRouter>
             {this.renderRouter(view_list)}
           </HashRouter>

@@ -3,7 +3,7 @@ import { HashRouter, Route, Link } from 'react-router-dom';
 
 import view_list from '@algorithm/router/algorithm'
 
-export default class Dashboard extends Component {
+export default class Home extends Component {
   constructor() {
     super();
   }
@@ -19,8 +19,8 @@ export default class Dashboard extends Component {
     })
     return(
       <>
-        <div>Hello I'm Dashboard</div>
-        <article id='algorithm-dashboard'>
+        <div>Hello I'm nav bar</div>
+        <article id='algorithm-home' className='home'>
             <HashRouter>
               {renderedAlgoRouter}
             </HashRouter>

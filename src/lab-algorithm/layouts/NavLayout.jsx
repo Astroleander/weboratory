@@ -1,10 +1,10 @@
 import React from 'react';
-import Dashboard from '@algorithm/AppAlgorithm.jsx'
+import Home from '@algorithm/AppAlgorithm.jsx'
 
 export default class NavLayout extends React.Component {
   render() {
     return (
-      <Dashboard />
+      <Home />
     )
   }
 }
