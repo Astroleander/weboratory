@@ -4,21 +4,15 @@ import { HashRouter, Switch, Route} from 'react-router-dom'
 import NavLaout from './layout/NavLayout'
 import CommonLayout from './layout/CommonLayout'
 
-const index = () => {
+const index = (props) => {
   return (
     <HashRouter>
       <Switch>
-        <Route
-          path='/*'
-          component={CommonLayout}
-        />
-        <Route
-          path=''
-          component={NavLaout}
-        />
+        <Route path="/views" component={CommonLayout} />
+        <Route path="" component={NavLaout} />
       </Switch>
     </HashRouter>
   );
-}
+};
 
 export default index;
