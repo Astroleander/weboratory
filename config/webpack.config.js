@@ -42,6 +42,8 @@ module.exports = {
       "@": path.join(__dirname, "..", "src"),
       "@graphics": path.join(__dirname, "..", "src", "lab-graphics"),
       "@algorithm": path.join(__dirname, "..", "src", "lab-algorithm"),
+      "@framework": path.join(__dirname, "..", "src", "lab-framework"),
+      "@scenario": path.join(__dirname, "..", "src", "lab-scenario"),
     },
     modules: [path.resolve(__dirname, "../src"), "../node_modules"],
   },
