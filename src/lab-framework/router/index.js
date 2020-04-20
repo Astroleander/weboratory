@@ -6,14 +6,14 @@ function importAll(prefix, r) {
     page_lists.push({
       key,
       r,
-      path: path.join(`snippet${prefix ? "/" + prefix : null}`, key),
+      path: path.join(`views${prefix ? ("/" + prefix) : ''}`, key),
     });
   });
 }
 
 importAll(
   '',
-  require.context("../views/", true, /.js$/, "lazy")
+  require.context("../views/", true, /.jsx$/, "lazy")
 );
 
 export default page_lists;

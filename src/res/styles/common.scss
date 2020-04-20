@@ -62,31 +62,39 @@ article {
   li {
     list-style: none;
     padding-left: 8px;
-    margin: 1px 2px;  
+    margin: 1px 2px;
+    border-left: 4px solid #666666;
+    &:hover {
+      transition: all 0.1s ease;
+      border-left: 6px solid #212121; /** default border */
+    }
   }
   a {
     text-decoration: none;
+    color: #264653; /** default color */
   }
-  #laboratory-algorithm {
+  #laboratory-algorithm & {
     li {
       border-left: 4px solid #F4A261;
-    }
-    a {
-      color: #264653;
+      &:hover {
+        border-left: 6px solid #E76F51;
+      }
     }
   }
   #laboratory-graphics & {
     li {
       border-left: 4px solid #F4A261;
-
       &:hover {
         border-left: 6px solid #E76F51;
-        transition: all 0.1s ease;
       }
     }
-
-    a {
-      color: #264653;
+  }
+  #laboratory-scenario & {
+    li {
+      border-left: 4px solid #F4A261;
+      &:hover {
+        border-left: 6px solid #E76F51;
+      }
     }
   }
 }
