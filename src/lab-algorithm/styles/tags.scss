@@ -1,0 +1,34 @@
+@mixin tag-mixer($color, $background) {
+  background: $background;
+  color: $color;
+  border-radius: 1px;
+  padding: 0 .4rem;
+  margin-right: .2rem;
+  box-shadow: 0 0 .2em gray;
+  cursor: pointer;
+  user-select: none;
+  &:active {
+    box-shadow: .1em .1em .4em darkgray;
+  }
+}
+@each $name, $color, $background in 
+('clear', white, repeating-linear-gradient(45deg,#FC7 0,#FC7 15px, black 15px,black 30px)),
+('leetcode', #ffa000, white),
+('dp', white, #43a047),
+('linklist', white, #1565c0),
+('math', white, #f44336),
+('bf', white, #212121),
+{
+  .tag-#{$name} {
+    @include tag-mixer($color, $background)
+  }
+}
+
+.tag-clear {
+  text-shadow: 1px 1px 2px black;
+}
+
+input[type=input] {
+  padding: .4em;
+  margin: .1em 0.4em;
+}
