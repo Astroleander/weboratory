@@ -59,7 +59,7 @@ function Clone6(obj, map = new WeakMap()) {
     if (map.get(obj)) return obj;
     map.set(obj, target);
     for (const key in obj) {
-      target[key] = Clone6(obj[key])
+      target[key] = Clone6(obj[key], map)
     }
     return target;
   } else {

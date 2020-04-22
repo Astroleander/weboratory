@@ -18,12 +18,12 @@ function throttle(fn, delay) {
 }
 
 function debounce(fn, delay) {
-  return function (args) {
+  let timer = null;
+  return function (...args) {
     let that = this
-    let _args = args
-    clearTimeout(fn.id)
-    fn.id = setTimeout(function () {
-      fn.call(that, _args)
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.call(that, args)
     }, delay)
   }
 }

@@ -1,23 +1,18 @@
 <template>
   <article id='laboratory-graphics'>
-    <!-- <header class="global-navigation">
-      <a v-for="entry in entries" :key="entry.title"
-        :href="entry.path">
-        {{entry.title}}
-      </a't>
-    </header> -->
-    <router-view></router-view>
+    <global-navigtion />
+    <!-- Vue 和 React 有一点不同, Vue 的 tamplate 不能水平展开,
+     所以层级上无法做到和 React 一样灵活
+     但是换句话说, Vue 的层级结构始终和路由是一致的
+     -->
+    <router-view />
   </article>
 </template>
 
 <script>
-// import { entries } from '#res/definitions'
+import GlobalNavigtion from '@/components/Globalnavigation.vue'
 export default {
-  // data() {
-  //   return {
-  //     entries: entries
-  //   }
-  // }
+  components: {GlobalNavigtion}
 }
 </script>
 

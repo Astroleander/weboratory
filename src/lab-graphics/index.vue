@@ -1,5 +1,5 @@
 <template>
-  <div class='home'>
+  <section class='home'>
     <search-bar @updated='handleUpdated' :default-list='getKeywordSet'>
     </search-bar>
     <div class='list'>
@@ -11,7 +11,7 @@
         </li>
       </template>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

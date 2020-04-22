@@ -3,7 +3,6 @@ import React from 'react';
 function generateList(r) {
   return r.keys().map((link) => {
     let name = link.split("/")[1];
-    console.log(name)
     if (name === "home") return;
     return (
       <a href={`${name}/`} 
