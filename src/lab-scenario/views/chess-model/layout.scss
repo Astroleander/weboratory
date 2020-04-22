@@ -36,7 +36,7 @@
   height: 100vh;
   * {
     pointer-events: auto;
-  }
+  };
 }
 
 #chess-model {
@@ -53,4 +53,9 @@
   #piece-3d {
     pointer-events: auto;
   }
+}
+
+#bk {
+  width: 100%;
+  height: 100%;
 }

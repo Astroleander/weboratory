@@ -3,7 +3,9 @@
 .title {
   font-family: 'Raleway', sans-serif;
 }
-
+.content, .title {
+  color: whitesmoke;
+}
 #logo-mark { font-size: 1.2em; font-weight: bolder; }
 #piece-name { font-size: 2.0em; font-weight: bolder; }
 #piece-description {
@@ -15,6 +17,9 @@
 canvas {
   outline: none;
 }
+#chess-hud {
+  background: #212121;
+}
 #piece-box-container {
   height: 12rem;
   width: 18rem;
@@ -22,19 +27,11 @@ canvas {
   overflow-x: hidden;
   overflow-y: hidden;
   #piece-box {
-    position: relative;
-    &::before {
-      content: '';
-      position: fixed;
-      background: linear-gradient(90deg,#FFF 0, transparent 0.8em, #FFF 100%);
-      width: 18rem;
-      height: 12rem;
-      pointer-events: none;
-    }
     .box {
       width: 10rem;
       height: 10rem;
       margin: 0 .8rem 0 0.8em;
+      border: none;
       border-radius: 16px;
       outline: none;
       &:nth-child(odd) {
@@ -46,4 +43,11 @@ canvas {
     }
 
   }
+}
+#bk {
+  background-image: url(https://cdn.pixabay.com/photo/2017/03/15/21/16/checkmated-2147538_960_720.jpg);
+  background-size: cover;
+  position: fixed;
+  // transform: scale(1.1);
+  filter: opacity(.1);
 }
