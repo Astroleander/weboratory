@@ -3,7 +3,6 @@ import { HashRouter, Route, Link } from 'react-router-dom';
 
 import './styles/tags.scss'
 import view_list from '@algorithm/router/algorithm'
-import GlobalNavigation from '@/components/GlobalNavigation.jsx'
 
 export default class Home extends Component {
   constructor() {
@@ -49,7 +48,6 @@ export default class Home extends Component {
     })
     return(
       <>
-        <GlobalNavigation />
         <nav>
           <input type='input' onChange={(e) => this.onBufferChange(e)} value={this.state.buffer}></input>
           <span onClick={() => this.setState({buffer : ''})} className={`tag-clear`}>clear</span>

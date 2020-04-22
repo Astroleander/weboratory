@@ -10,11 +10,11 @@ export default class Home extends PureComponent {
   render() {
     return (
       <>
-        <article id='scenario-home' className='home'>
+        <section id='scenario-home' className='home'>
           <HashRouter>
             {this.renderRouter(view_list)}
           </HashRouter>
-        </article>
+        </section>
       </>
     )
   }
