@@ -6,16 +6,18 @@ export default class AlgoLayout extends React.Component {
     let path = pathname.substring(pathname.indexOf('/', 2));
     /** 👇 Webapck 使用实时 import 的时候经常需要限定范围 */
     import('@/snippet/algorithm' + path).then(m => {
-      let state = { path }
-      console.log(m)
-      Object.keys(m.default).forEach(propertyName => {
+      let state = { path };
+      let module = m.default || m;
+      console.log(module);
+
+      Object.keys(module).forEach(propertyName => {
         /** copy each param */
         state[propertyName] = m.default[propertyName]
         /** parse name and params of function */
-        if (propertyName !== 'inputs') {
+        if (propertyName !== 'inputs') { /** 👈 means the property is the function (so our functions name can't be 'inputs') */
           state['func_key'] = propertyName
-        } else {
-          state['inputs_type'] = [...m.default[propertyName].map(propertyName => typeof propertyName)]
+        } else { /** 👈 means the property is inputs */
+          state['inputs_type'] = [...module[propertyName].map(propertyName => typeof propertyName)]
         }
       })
       state['done'] = true;
@@ -27,16 +29,18 @@ export default class AlgoLayout extends React.Component {
     return nextState['done']
   }
   render() {
-    let key = this.state && this.state['func_key'] || undefined
+    /** [📖 review] precedence of Logic OR(||) is 5, and Logic AND(&&) is 6 */
+    let func_key = (this.state && this.state["func_key"]) || undefined;
     return (
       <>
       {(
         <div>
-          <pre>{key && String(this.state[key])}</pre>
+          <pre>{func_key && String(this.state[func_key])}</pre>
           <hr />
-          {key && this.state[key] && this.state['inputs'] && this.state['inputs_type'] && this.renderArgs()}
+          {/** delay timing of params render until function has loaded*/}
+          {func_key && this.state[func_key] && this.state['inputs'] && this.state['inputs_type'] && this.renderArgs()}
           <hr />
-          {key && this.state[key] && this.state['inputs'] && this.renderResults(key)}
+          {func_key && this.state[func_key] && this.state['inputs'] && this.renderResults(func_key)}
         </div>
       )}
       <FloatButton />
@@ -44,20 +48,21 @@ export default class AlgoLayout extends React.Component {
     )
   }
   renderArgs() {
+    /** display all params and create input for primitive type params */
     return this.state['inputs'].map((item, idx) => {
       return (
         <div key={`${idx}`} className='float-label-container'>
           <input
             id={`args-${idx}`}
             value={this.state['inputs'][idx]}
-            onChange={(e) => this.handleArgChange(e.target.value, idx)}
+            onChange={(e) => this.handleArgChange(e.target.value, idx, e)}
             disabled={(this.state['inputs_type'][idx] === 'number' || this.state['inputs_type'][idx] === 'string' ? '' : 'disabled')}
           />
           <label htmlFor={`arg-${idx}`}>
-            <blockquote>
+            <code>
             {typeof this.state['inputs'][idx] === 'object' ?
               JSON.stringify(this.state['inputs'][idx]) : this.state['inputs'][idx]}
-          </blockquote>
+          </code>
           </label>
         </div>
       )
@@ -67,15 +72,25 @@ export default class AlgoLayout extends React.Component {
     let f = this.state[key];
     return (
       <div>result:
-        {JSON.stringify(f(...this.state['inputs']))}
+        <blockquote>
+          {JSON.stringify(f(...this.state['inputs']))}
+        </blockquote>
       </div>
     )
   }
-  handleArgChange(val, idx) {
+  handleArgChange(val, idx, e) {
     let newer = this.state['inputs'];
     if (this.state['inputs_type'][idx] === 'number') {
-      if (val === '-') return -0;
+      /** 
+       * 1. if string endswith '-' means user enter '-' just now
+       * 2. currently, val is like 'xxx-', newer[idx] is the old value xxx (number)
+       * 3. so we could just set val to negtive
+       */
+      if (String.prototype.endsWith.call(val, "-")) {
+        val = -newer[idx];
+      }
       newer[idx] = Number(val);
+      if (Number.isNaN(newer[idx])) newer[idx] = 0;
     } else {
       newer[idx] = val;
     }
