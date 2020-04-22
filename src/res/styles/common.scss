@@ -57,7 +57,6 @@ article {
 .serif {
   font-family: 'Noto Serif SC','Noto Serif TC','Noto Serif JP', serif;
 }
-
 .home {
   li {
     list-style: none;
@@ -99,35 +98,33 @@ article {
   }
 }
 
-
-.global-navigation {
-  a {
-    // position: absolute;
-    margin: 0px 4px 0px 4px;
-    font-size: 1.2em;
-    font-family: 'Roboto', serif;
-    text-decoration: none;
+.vue-global-nav-link,
+.react-global-nav-link {
+  // position: absolute;
+  margin: 0px 4px 0px 4px;
+  font-size: 1.2em;
+  font-family: 'Roboto', serif;
+  text-decoration: none;
+  color: #212121;
+  transition: all 0.2s;
+  &:active, &:visited{
     color: #212121;
-    transition: all 0.2s;
-    &:active, &:visited{
-      color: #212121;
-    }
-    &:hover {
-      color: #D62800;
-      &:before {
-        left: -5px;
-      }
-      &:after {
-        right: -5px;
-      }
-    }
+  }
+  &:hover {
+    color: #D62800;
     &:before {
-      position: relative;
-      content: '[ ';
+      left: -5px;
     }
     &:after {
-      position: relative;
-      content: ' ]';
+      right: -5px;
     }
+  }
+  &:before {
+    position: relative;
+    content: '[ ';
+  }
+  &:after {
+    position: relative;
+    content: ' ]';
   }
 }
