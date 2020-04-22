@@ -19,7 +19,7 @@ function generateList(r) {
 const GlobalNavigation = () => {
   console.log("[GlobalNavigation] load...");
   return (
-    <nav>
+    <nav id='global-nav'>
       {generateList(require.context("@/", true, /index.html$/, "lazy"))}
     </nav>
   );
