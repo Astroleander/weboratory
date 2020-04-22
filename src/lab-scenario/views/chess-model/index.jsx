@@ -25,17 +25,18 @@ export class Gallery extends Component {
       // an attempt to float
       <>
         <section id='chess-hud'>
+          <div id='bk' className='row-0 col-0'></div>
           <div id='logo-mark' className='title row-1 col-1'>CHESS</div>
           <div id='menu' className='title row-reverse-1 col-1'>menu</div>
 
-          <div id='piece-name' className='title row-2 col-5'>
+          <div id='piece-name' className='title row-2 col-6'>
             {this.state.piece && this.state.piece.name}
           </div>
-          <div id='piece-description' className='row-2 col-6'>
+          <div id='piece-description' className='content row-2 col-7'>
             {this.state.piece && this.state.piece.proverb}
           </div>
-          <div id='piece-wiki' className='row-2 col-7'>wiki</div>
-          <div id='piece-box-container' ref={this.piecebox} className='row-reverse-2 col-reverse-2'
+          {/* <div id='piece-wiki' className='content row-2 col-7'>wiki</div> */}
+          <div id='piece-box-container' ref={this.piecebox} className='content row-reverse-2 col-reverse-2'
             onMouseDown={this.dragStart} 
             onMouseMove={this.draging}
             onMouseUp={this.dragEnd}

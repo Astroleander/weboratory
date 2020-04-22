@@ -27,6 +27,9 @@ http://archive.zbrushcentral.com/zbcinfinite.php?t=171080, *Available until 2019
 
 https://www.pinterest.jp/evayali/matcap/, *Available until 2019/12/12*
 
+# TOFIX LIST
++ [ ] 2020/4/23 css chunk should load independence
+
 # TODO List
 + [ ] linear tranfromation visulization
 + [ ] human maker
