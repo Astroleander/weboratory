@@ -13,7 +13,7 @@ function importAll(prefix, r) {
 
 importAll(
   '',
-  require.context("../views/", true, /.jsx$/, "lazy")
+  require.context("../views/", true, /index.jsx$/, "lazy")
 );
 
 export default page_lists;
