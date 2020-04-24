@@ -10,7 +10,7 @@ const AppFramework = () => {
         {
           view_list.map((item, idx) => (
             <li key={idx}>
-              <Link to={item.path}>{item.path.replace(/\//g, " - ")}</Link>
+              <Link to={item.path}>{item.key.substring(2).replace(/\//g, " - ")}</Link>
             </li>
           ))
         }
