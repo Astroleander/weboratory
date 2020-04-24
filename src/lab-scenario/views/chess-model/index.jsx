@@ -4,9 +4,13 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+import { Tools } from '@/utils/function.js'
+
 import './index.scss'
 import CONFIG from './config'
 
+const DEFAULT_FACTOR = 0.2;
+const DIMINISH_FACTOR = 0.05;
 export class Gallery extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +21,10 @@ export class Gallery extends Component {
     this.draging = this.draging.bind(this);
     this.dragEnd = this.dragEnd.bind(this);
     this.handlePieceChanged = this.handlePieceChanged.bind(this);
+    this.wheel = this.wheel.bind(this);
     this.piecebox = React.createRef();
+
+    this.scrollFactor = DEFAULT_FACTOR;
   }
   
   render() {
@@ -36,12 +43,13 @@ export class Gallery extends Component {
             {this.state.piece && this.state.piece.proverb}
           </div>
           {/* <div id='piece-wiki' className='content row-2 col-7'>wiki</div> */}
-          <div id='piece-box-container' ref={this.piecebox} className='content row-reverse-2 col-reverse-2'
+          <div id='piece-box-container' ref={this.piecebox} className='content row-reverse-1 col-reverse-2'
             onMouseDown={this.dragStart} 
             onMouseMove={this.draging}
             onMouseUp={this.dragEnd}
             /** 离开滚动区域需要结算当前结果不然会重现 gbf 选属性的那个经典 bug */
             onMouseLeave={this.dragEnd}
+            onWheel={this.wheel}
             >
             {/* {this.buttonList()} */}
             <div id='piece-box'>
@@ -80,12 +88,28 @@ export class Gallery extends Component {
   
   draging(e) {
     if (this.shiftX) {
-      this.piecebox.current.scrollLeft += this.shiftX - e.pageX
+      this.piecebox.current.scrollLeft += this.shiftX - e.pageX;
       this.shiftX = e.pageX;
     }
   }
   dragEnd(e) {
     this.shiftX = 0;
+  }
+  wheel(e, recusion=false) {
+    let y = e.deltaY;
+    this.scrollFactor += DEFAULT_FACTOR;
+    this.scroll(y / 2)
+  }
+  scroll(x) {
+    this.piecebox.current.scrollLeft += x * this.scrollFactor;
+    if (this.scrollFactor > DEFAULT_FACTOR) {
+      clearTimeout(this.scrollRuducer);
+      this.scrollRuducer = setTimeout(()=>{
+        this.scrollFactor = this.scrollFactor - DIMINISH_FACTOR;
+        console.log(this.scrollFactor, DEFAULT_FACTOR, this.scrollFactor > DEFAULT_FACTOR)
+        this.scroll(x * this.scrollFactor)
+      }, 20)
+    }
   }
 }
 
