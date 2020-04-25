@@ -18,6 +18,7 @@
 ('linklist', white, #1565c0),
 ('math', white, #f44336),
 ('bf', white, #212121),
+('slidingwindow', white, #dce775)
 {
   .tag-#{$name} {
     @include tag-mixer($color, $background)
