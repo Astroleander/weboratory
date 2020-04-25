@@ -55,7 +55,7 @@ article {
 }
 
 .serif {
-  font-family: 'Noto Serif SC','Noto Serif TC','Noto Serif JP', serif;
+  font-family: Noto Serif SC,Noto Serif TC,Noto Serif JP, serif;
 }
 .home {
   li {
@@ -103,7 +103,7 @@ article {
   // position: absolute;
   margin: 0px 4px 0px 4px;
   font-size: 1.2em;
-  font-family: 'Roboto', serif;
+  font-family: Roboto, serif;
   text-decoration: none;
   color: #212121;
   transition: all 0.2s;
@@ -125,6 +125,39 @@ article {
   }
   &:after {
     position: relative;
-    content: ' ]';
+    content:  ' ]';
   }
+}
+
+.scroll-x {
+  .float-descriptor {
+    width: 100%;
+    position: absolute;
+    line-height: 250px;
+    background: transparent;
+    text-shadow: 0 0 1px #EEE;
+    color: gray;
+    text-align: center;
+    font-size: 3.5em;
+    pointer-events: none;
+    code {
+      font-family: 'consolas';
+      font-weight: bold;
+    }
+  }
+  .inner-square {
+    margin: .1em .1em .1em .1em;
+    width: 250px;
+    height: 250px;
+    background: #EEE;
+    text-align:center;
+    line-height: 250px;
+    font-size: 3em;
+    font-weight: Bold;
+    color: #D0D0D0;
+    display: inline-block;
+  }
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
