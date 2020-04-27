@@ -15,14 +15,27 @@ export default class Home extends Component {
   parsePath(path) {
     const UNNECESSARY_HEAD_LENGTH = 1;
     const TAIL_LENGTH = 1;
+    const LEETCODE_DOT = 2;
 
     const pathRoute = path.split(/\//g).slice(UNNECESSARY_HEAD_LENGTH);
-    let fragments = pathRoute.slice(0, pathRoute.length - TAIL_LENGTH).map(tag => {
+    let fragments = pathRoute.slice(0, pathRoute.length - TAIL_LENGTH).map((tag,i) => {
       if (!this.state.nameset.has(tag)) {
         this.state.nameset.add(tag);
         // this.forceUpdate()
       }
-      return (<span key={tag} className={`tag-${tag}`}>{tag}</span>)
+      // TODO: I do not like this special
+      if (tag === 'special') {
+        let sp = pathRoute[pathRoute.length - TAIL_LENGTH].split(/\./g)
+        if (sp.length > LEETCODE_DOT + 1) {
+          return (
+            <span key={tag}>
+              <span className={`tag tag-${tag}`}>{tag}</span>
+              <span className={`tag`}>{sp[sp.length - LEETCODE_DOT]}</span>
+            </span>
+          )
+        }
+      }
+      return (<span key={tag+i} className={`tag tag-${tag}`}>{tag}</span>)
     })
     return (
       <>
@@ -50,7 +63,7 @@ export default class Home extends Component {
       <>
         <nav>
           <input type='input' onChange={(e) => this.onBufferChange(e)} value={this.state.buffer}></input>
-          <span onClick={() => this.setState({buffer : ''})} className={`tag-clear`}>clear</span>
+          <span onClick={() => this.setState({buffer : ''})} className={`tag tag-clear`}>clear</span>
           {Array.from(this.state.nameset)
             .map(e => (
             <span 
@@ -58,7 +71,7 @@ export default class Home extends Component {
                 () => this.state.buffer === e ? 
                   this.setState({buffer : ''}) : this.setState({buffer : e})
               } 
-              className={`tag-${e}`} key={e}>{e}
+              className={`tag tag-${e}`} key={e}>{e}
             </span>))
           }
         </nav>
