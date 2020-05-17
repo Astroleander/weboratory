@@ -109,6 +109,12 @@ module.exports = {
           },
         },
       },
+      /** tsx loader */
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: 'ts-loader'
+      },
       /** vue loader */
       {
         test: /\.vue$/,

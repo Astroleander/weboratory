@@ -12,5 +12,6 @@ function importAll(prefix, r) {
 }
 
 importAll('leetcode', require.context('@/snippet/algorithm/leetcode', true, /.js$/, 'lazy'));
+importAll('ds', require.context('@/snippet/algorithm/ds', true, /.ts$/, 'lazy'));
 
 export default page_lists
