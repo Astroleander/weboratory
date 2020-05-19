@@ -7,8 +7,6 @@ import graph from './graph.yml'
 
 import ChartRadar from '@/components/charts/ChartRadar'
 const PlayerDigital = (props) => {
-  let predata = PropertyGenerator(props.seed);
-
   const [seed, setSeed] = useState(null)
   const [data, setData] = useState(null)
   const [info, setInfo] = useState(null)
@@ -17,7 +15,7 @@ const PlayerDigital = (props) => {
 
   if (props.seed !== seed) {
     setSeed(props.seed)
-    setData(predata);
+    setData(PropertyGenerator(props.seed));
     setInfo(InfoGenerator(props.seed))
     setTrait(TraitsGenerator(props.seed))
     setAvatarURI(AvatarURIGenerator(props.seed))
@@ -102,9 +100,10 @@ const TraitsGenerator = (seed, traitsgroup= 'western') => {
   )
 }
 const PropertyGenerator = (seed) => {
-  const rollProperty = (rare, ...fix) => {
-    return fix.reduce((p, v)=> p + v, 0) + 
-      Math.random() * 100 * (1.1 * rare + 0.15)
+  const rollProperty = (rare) => {
+    const addons = [rare * rare * 100 / 4];
+    const distribution = Math.sin(Math.random() * Math.PI / 2) * 100 * rare
+    return addons.reduce((p, v)=> p + v, 0) + distribution
   }
   const data =
   {
