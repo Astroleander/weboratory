@@ -15,7 +15,7 @@ export default class PlayerGenerator extends Component {
 }
 const seed = () => {
   return {
-    rare: Math.random(),
+    rare: Math.sin(Math.random() * Math.PI / 2),
     index: + new Date()
 }
 }
