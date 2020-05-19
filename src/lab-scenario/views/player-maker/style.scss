@@ -22,3 +22,147 @@
       }
   }
 }
+/////////////////////////////// player list //////////////////
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.accept-container {
+  width: 100%;
+  height: 6.2em;
+  background-color: #66A182;
+  overflow: hidden;
+}
+.accept-player {
+  font-family: 'Press Start 2P', cursive;
+  border: none;
+  outline: none;
+  margin: 0 auto;
+  width: 98%;
+  background-color: #66A182;
+  font-size: 2.5em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  cursor: pointer;
+  color: #FFF;
+  transition: all 0.5s;
+  position: relative;
+  &:hover {
+    outline: none;
+  }
+  &:active {
+    background: #66A1A0;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(255,255,255,0.1);
+    transition: all 0.3s;
+  }
+  &:hover::before {
+    opacity: 0 ;
+    transform: scale(0.5,0.5);
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s;
+    border: 1px solid rgba(255,255,255,0.5);
+    transform: scale(1.2,1.2);
+  }
+  &:hover::after {
+    opacity: 1;
+    transform: scale(1,1);
+  }
+}
+.player-list {
+  background: #EAEAEA;
+}
+.player-list-item {
+  background: white;
+  width: 100%;
+  padding: 1.2em;
+  margin: 1em;
+  border-radius: 2px;
+  display: grid;
+  grid-template-columns: 90px auto 25% 25% 5em;
+  grid-template-rows: 2em 4em 1.5em 1.5em;
+}
+.player-list-item-avatar {
+  grid-column: 1;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.player-list-item-info {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 4;
+  grid-row-end: 4;
+  text-align: center;
+}
+.player-list-item-data {
+  margin: 0 1em;
+  .property {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 33%;
+    .property-name {
+      font-weight: bold;
+    }
+    .property-numerical {
+      font-family: 'Press Start 2P', cursive;
+      @each $varity, $color in
+        ('terrible', grey),
+        ('noob', #666),
+        ('normal', black),
+        ('good', green),
+        ('expert', blue),
+        ('elite', pink),
+        ('master', cyan),
+        ('legend', orange),
+        ('epic', red),
+        ('relic', gold),
+        ('invincible', black),
+      {
+        &.#{$varity} {
+          color: $color;
+        }
+      }
+    }
+  }
+}
+.player-list-item-menu {
+  grid-column: 5;
+  grid-row: 1;
+  .delete {
+    width: 1.8rem;
+    height: 1.8rem;
+    background: indianred;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    font-weight: bold;
+    box-shadow: 0px 0px 2px grey;
+    transform: rotate(45deg);
+    &:active, &:focus {
+      outline: none;
+      box-shadow: 0px 0px 4px #666;
+    }
+    &:active {
+      background: darkred;
+    }
+  }
+}
