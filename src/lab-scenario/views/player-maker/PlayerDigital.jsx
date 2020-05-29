@@ -12,6 +12,7 @@ const PlayerDigital = (props) => {
   const [info, setInfo] = useState(null)
   const [trait, setTrait] = useState(null)
   const [avatarURI, setAvatarURI] = useState(null)
+  const [name, setName] = useState(null)
 
   if (props.seed !== seed) {
     setSeed(props.seed)
@@ -19,10 +20,11 @@ const PlayerDigital = (props) => {
     setInfo(InfoGenerator(props.seed))
     setTrait(TraitsGenerator(props.seed))
     setAvatarURI(AvatarURIGenerator(props.seed))
+    setName(NameGenerator(props.seed))
   }
   
   useEffect(() => {
-    props.setPlayer({seed, data, info, trait, avatarURI})
+    props.setPlayer({seed, data, info, trait, avatarURI, name})
   })
   if (!seed){
     /** hooks do not effect immediately */
@@ -33,7 +35,7 @@ const PlayerDigital = (props) => {
   Object.keys(radarData).forEach((e, i) => radarData[e] /= 100);
   return <section className='stats-panel'>
     <section className='sub-panel sub-panel-1'>
-      <span>名字: </span><br />
+      <span>名字: {name}</span><br />
       <span>职业: {info.class}</span><br />
       <span>性别: {info.gender}</span><br />
       <span>稀有度: {Show.rare(seed.rare)}</span>
@@ -74,6 +76,7 @@ const Show = {
 const InfoGenerator = (seed) => {
   let queue = [graph.start]
   let ret = {}
+  console.group('Generate Info')
   while(queue.length) {
     let element = queue.shift()
     if(!element) break;
@@ -89,7 +92,23 @@ const InfoGenerator = (seed) => {
       queue.push(graph[next])
     }
   }
+  console.groupEnd('Generate Info')
   return ret
+}
+const NameGenerator = (seed) => {
+  const length = new Array(3).fill(0).map(e => ~~(Math.random() * 5 + 1));
+  const name = length.map(len => randomUnicode(len))
+  const forms = [
+    `${name[0]} · ${name[1]}`,
+    `${name[0]}`,
+    `${name[0]} · ${name[1]} · ${name[2]}`,
+    `${name[1]} ${name[0]}`,
+    `${name[0]}${name[1]}`,
+    `${name[0]}-${name[1]}`,
+    `${name[0]} el ${name[1]}`,
+    `${name[0]} of ${name[1]}`,
+  ]
+  return ArrayUtils.randomSelect(forms, 1)
 }
 const TraitsGenerator = (seed, traitsgroup= 'western') => {
   let mTraits = ArrayUtils.randomSelect(traits['western'], Math.floor(Math.random() * traits['western'].length));
@@ -111,7 +130,7 @@ const PropertyGenerator = (seed) => {
     '敏捷': rollProperty(seed.rare), '智慧': rollProperty(seed.rare),
     '感知': rollProperty(seed.rare), '魅力': rollProperty(seed.rare)
   }
-  console.log(data)
+  // console.log(data)
   return data
 }
 
@@ -171,6 +190,16 @@ const drawRareColor = (rare) => {
     ['#ff5252', rare => 0.9 <= rare]
   ]
   return rules.find(rule => rule[1](rare))[0];
+}
+
+const randomUnicode = (length = 5) => {
+  var array = new Uint16Array(length);
+	window.crypto.getRandomValues(array);
+	var str = '';
+	for (var i = 0; i < array.length; i++) {
+		str += String.fromCharCode(array[i]);
+	};
+	return str;
 }
 
 export default PlayerDigital;

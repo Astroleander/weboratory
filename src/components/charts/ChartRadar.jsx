@@ -86,7 +86,6 @@ const shape = (columns, color) => (chartData, i) => {
 
 const caption = () => col => {
   const [x, y] = polar(col.angle, (chartSize / 2 * 1.18).toFixed(4))
-  console.log()
   return <text
     key={`caption-of-${col.key}`}
     x={x}
@@ -101,7 +100,7 @@ const caption = () => col => {
 }
 
 const ChartRadar = props => {
-  console.log(props)
+  // console.log(props)
 
   const groups = [];
   const scales = [];
