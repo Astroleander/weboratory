@@ -1,7 +1,6 @@
 import React from 'react';
 
 const PlayerList = (props) => {
-  console.log('props:', props)
   return (
     <>
     <section className='accept-container flex-container center'>
@@ -30,6 +29,9 @@ const PlayerList = (props) => {
           <div className='player-list-item-trait'></div>
           <div className='player-list-item-menu'>
             <button className='delete' onClick={() => props.deleteItem(idx)}>+</button>
+          </div>
+          <div className='player-list-item-name'>
+            {player.name}
           </div>
           {/* <div className='player-list-item-seed'></div> */}
         </div> 

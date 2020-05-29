@@ -20,23 +20,18 @@ export class PlayerMaker extends Component {
   updateSeed () {
     this.setState({seed: (() => getNewSeed())()})    
   }
-  shouldComponentUpdate(nextProps, nextStates) {
-    console.log(nextStates, this.state)
-    return true;
-  }
   render() {
     return (
       <article className='container'>
-        {console.log(this.state.seed)}
         <PlayerGenerator onClick={e => setTimeout(() => this.setState({seed: e}), 0)}></PlayerGenerator>
         <PlayerDigital seed={this.state.seed} setPlayer={(p)=>{this.player = p}}></PlayerDigital>
-        <PlayerList 
+        <PlayerList
           list={this.state.playerlist} 
-          onClick={e=> {
+          onClick={e => {
             acceptPlayer(this, this.player);
             this.updateSeed();
           }}
-          deleteItem={idx=> {
+          deleteItem={idx => {
             this.state.playerlist.splice(idx, 1)
             this.setState({playerlist: this.state.playerlist})
           }

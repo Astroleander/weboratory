@@ -104,8 +104,8 @@
   grid-row-end: 2;
 }
 .player-list-item-info {
-  grid-column-start: 1;
-  grid-column-end: 1;
+  grid-column-start: 2;
+  grid-column-end: 2;
   grid-row-start: 4;
   grid-row-end: 4;
   text-align: center;
@@ -165,4 +165,8 @@
       background: darkred;
     }
   }
+}
+.player-list-item-name {
+  grid-column: 1;
+  grid-row: 3
 }
