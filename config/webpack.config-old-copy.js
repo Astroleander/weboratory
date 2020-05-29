@@ -1,5 +1,11 @@
+/**
+ * @author Astroleander
+ * @date 2020/05/29
+ *
+ * 我决定采用自动化的方式分析目录以构建所需的 @entry , @alias, @HTMLWebPackPlugin ,
+ * 为了方便后来者学习，我留下最后版本的手写版本
+ */
 const path = require("path");
-const fs = require("fs");
 
 const HTMLWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -8,29 +14,6 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 
 const { VueLoaderPlugin } = require("vue-loader");
 
-/**
- * analysis dir and generate configurations
- */
-let dir = {
-  names: fs.readdirSync(path.resolve("src")),
-  entries: {},
-  HTMLWebPackPlugins: [],
-  alias: {},
-};
-dir.names = dir.names.filter((name) => name.substring(0, 4) === "lab-");
-dir.names.forEach((name) => {
-  dir.entries[name] = [`./src/${name}/index.js`];
-  dir.alias[`@${name.substring(4)}`] = path.join(__dirname, "..", "src", name);
-  dir.HTMLWebPackPlugins.push(
-    new HTMLWebPackPlugin({
-      template: `./src/${name}/index.html`,
-      filename: `./${name}/index.html`,
-      chunks: ["config", "general", `${name}`],
-      hash: true,
-      minify: { collapseInlineTagWhitespace: true },
-    })
-  );
-});
 module.exports = {
   /**
    * an absolute path, for resolving entry points and loaders from configuration.
@@ -40,13 +23,12 @@ module.exports = {
 
   entry: {
     home: ["./src/home/index.js"],
-    // graphics: ["./src/lab-graphics/index.js"],
-    // algorithm: ["./src/lab-algorithm/index.js"],
-    // scenario: ["./src/lab-scenario/index.js"],
-    // framework: ["./src/lab-framework/index.js"],
+    graphics: ["./src/lab-graphics/index.js"],
+    algorithm: ["./src/lab-algorithm/index.js"],
+    scenario: ["./src/lab-scenario/index.js"],
+    framework: ["./src/lab-framework/index.js"],
     general: ["./config/weboratory.general.js"],
     config: ["./config/weboratory.config.js"],
-    ...dir.entries,
     /**
      * 👇 NEEDS Webpack 5
      */
@@ -66,12 +48,46 @@ module.exports = {
     extensions: [".js", ".json", ".vue", ".jsx"],
     alias: {
       "@": path.join(__dirname, "..", "src"),
-      ...dir.alias,
+      "@graphics": path.join(__dirname, "..", "src", "lab-graphics"),
+      "@algorithm": path.join(__dirname, "..", "src", "lab-algorithm"),
+      "@framework": path.join(__dirname, "..", "src", "lab-framework"),
+      "@scenario": path.join(__dirname, "..", "src", "lab-scenario"),
     },
     modules: [path.resolve(__dirname, "../src"), "../node_modules"],
   },
   plugins: [
-    ...dir.HTMLWebPackPlugins,
+    new HTMLWebPackPlugin({
+      template: "./src/lab-graphics/index.html",
+      filename: "./lab-graphics/index.html",
+      chunks: ["config", "general", "graphics"],
+      hash: true,
+      minify: { collapseInlineTagWhitespace: true },
+    }),
+    new HTMLWebPackPlugin({
+      template: "./src/lab-algorithm/index.html",
+      filename: "./lab-algorithm/index.html",
+      chunks: ["config", "general", "algorithm"],
+      hash: true,
+      minify: { collapseInlineTagWhitespace: true },
+    }),
+    new HTMLWebPackPlugin({
+      template: "./src/lab-scenario/index.html",
+      filename: "./lab-scenario/index.html",
+      chunks: ["config", "general", "scenario"],
+      hash: true,
+      minify: {
+        collapseInlineTagWhitespace: true,
+      },
+    }),
+    new HTMLWebPackPlugin({
+      template: "./src/lab-framework/index.html",
+      filename: "./lab-framework/index.html",
+      chunks: ["config", "general", "framework"],
+      hash: true,
+      minify: {
+        collapseInlineTagWhitespace: true,
+      },
+    }),
     new HTMLWebPackPlugin({
       template: "./src/home/index.html",
       filename: "./index.html",
