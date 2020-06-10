@@ -11,9 +11,7 @@ function importAll(prefix, r) {
   });
 }
 
-importAll(
-  '',
-  require.context("../views/", true, /index\.jsx$/, "lazy")
-);
+importAll('',  require.context("../views/", true, /index\.jsx$/, "lazy"));
+importAll('',  require.context("../views/", false, /\.jsx$/, "lazy"));
 
 export default page_lists;
