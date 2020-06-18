@@ -1,18 +1,21 @@
+const log = function (...args) {
+  console.log('[middleware][log]', ...args)
+}
 export const stampMiddleware = async (ctx, next) => {
   const start = Date.now();
   await next();
   const end = Date.now();
-  console.log('time flip by ---- ', end - start)
+  log('[timestamp] time pass by ---- ', end - start)
 }
 
 export const logMiddleware = async (ctx, next) => {
-  console.log('[exec start...]')
+  log('[log] exec start...')
   await next();
-  console.log('[executed!...]')
+  log('[log] executed!...')
 }
 
 export const ctxMiddleware = async (ctx, next) => {
-  console.log('[ctx]' + ctx ? ctx : 'nothing in ctx');
+  log('[ctx]' + (ctx ? ctx : 'nothing in ctx'));
   await next();
-  console.log('[ctx]' + ctx ? ctx : 'still nothing in ctx');
+  log('[ctx]' + (ctx ? ctx : 'still nothing in ctx'));
 }
