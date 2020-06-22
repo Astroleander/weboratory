@@ -12,15 +12,15 @@
  * 👆 0 配置太傻了, 我们使用 /config 下的 webpack 配置指向各个入口
  * [ Note at 2020.06.17 👆 ] 这个文件已经不在 ./src 下了，上面的零配置说明需要说明了需要在相应目录下
  */
-
 import './index.css'
 // TODO: process.env 似乎是不可枚举的?
 if (process.env.NODE_ENV !== 'production') {
   console.log('[home][index.js] Dev Mode!')
 }
 
-animateBubble()
-animateWater()
+animateBubble();
+animateWater();
+analyzeCatelog();
 
 function animateBubble() {
   let e = document.getElementsByClassName('bubble-in-flask')
@@ -40,16 +40,13 @@ function animateWater() {
   let p = document.getElementsByClassName('waterline-in-flask')
 }
 
-function analyzeCatelog(r) {
+function analyzeCatelog() {
   let catelogue = document.getElementById('catelogue')
-  r.keys().forEach(link => {
-    let name = link.split('/')[1];
-    if (name === 'home') return;
+  ENTRIES.forEach(name => {
     let el = document.createElement('a');
     el.classList.add('link');
-    el.href = name + '/';
+    el.href = name;
     el.innerHTML = name.replace(/^\w*?-/, '').toUpperCase()
     catelogue.appendChild(el)
-  });
+  })
 }
-analyzeCatelog(require.context('@/', true, /index.html$/, 'lazy'));

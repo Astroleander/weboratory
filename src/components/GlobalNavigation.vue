@@ -17,12 +17,11 @@ export default {
     }
   },
   created() {
-    this.generateList(require.context('@/', true, /index.html$/, 'lazy'))
+    this.generateList()
   },
   methods: {
-    generateList(r) {
-      return r.keys().map(link => {
-        let name = link.split("/")[1];
+    generateList() {
+      return ENTRIES.map(name => {
         console.log(name)
         if (name === "home") return;
         this.names.push(name);
