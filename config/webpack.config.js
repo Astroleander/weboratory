@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 
-const HTMLWebPackPlugin = require("html-webpack-plugin");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
@@ -14,16 +14,21 @@ const { VueLoaderPlugin } = require("vue-loader");
 let dir = {
   names: fs.readdirSync(path.resolve("src")),
   entries: {},
-  HTMLWebPackPlugins: [],
+  HTMLWebpackPlugins: [],
   alias: {},
 };
 dir.names = dir.names.filter((name) => name.substring(0, 4) === "lab-");
 dir.names.forEach((name) => {
   dir.entries[name] = [`./src/${name}/index.js`];
   dir.alias[`@${name.substring(4)}`] = path.join(__dirname, "..", "src", name);
-  dir.HTMLWebPackPlugins.push(
-    new HTMLWebPackPlugin({
-      template: `./src/${name}/index.html`,
+  dir.HTMLWebpackPlugins.push(
+    new HTMLWebpackPlugin({
+      /** [ 👇特性 ] 在 .html 中使用 <%= [htmlWebpackPlugin.options.xxxx] %> 来使用自定义变量, 代价是不能使用 html-loader */
+      /** [ 🥊竞争 ] html-loader 同样有自己的方案, 你可以选择任意的模板语法, 然后使用 preprocessor 来处理你的模板 @see https://webpack.js.org/loaders/html-loader/#templating*/
+      name: name.replace(/lab-/, ''),
+      id: name.replace(/lab/, 'laboratory'),
+      // template: `./src/${name}/index.html`,
+      template: `./template.html`,
       filename: `./${name}/index.html`,
       chunks: ["config", "general", `${name}`],
       hash: true,
@@ -71,8 +76,8 @@ module.exports = {
     modules: [path.resolve(__dirname, "../src"), "../node_modules"],
   },
   plugins: [
-    ...dir.HTMLWebPackPlugins,
-    new HTMLWebPackPlugin({
+    ...dir.HTMLWebpackPlugins,
+    new HTMLWebpackPlugin({
       template: "./src/home/index.html",
       filename: "./index.html",
       chunks: ["config", "general", "home"],
@@ -115,6 +120,7 @@ module.exports = {
       /** html loader */
       {
         test: /\.html$/,
+        exclude: /template\.html$/,
         use: {
           loader: "html-loader",
           options: { minimize: false },
