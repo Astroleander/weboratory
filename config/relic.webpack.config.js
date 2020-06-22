@@ -4,6 +4,11 @@
  *
  * 我决定采用自动化的方式分析目录以构建所需的 @entry , @alias, @HTMLWebPackPlugin ,
  * 为了方便后来者学习，我留下最后版本的手写版本
+ * 
+ * @date 2020/06/22
+ * 此页面的意义是展示“如果我们手写一个 webpack 配置表，它看起来会是怎样的”
+ * 并非是 webpack 配置的最佳实践
+ * 此外，现在在用的自动化版本也仅仅是个人的一种尝试，成熟的实现务必参考各种 CLI 和 create-xxx
  */
 const path = require("path");
 
