@@ -6,3 +6,6 @@ dist/
 
 # VS code configuration
 .vscode/
+
+# typescript
+*.d.ts
