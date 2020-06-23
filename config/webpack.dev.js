@@ -4,7 +4,7 @@ const common = require('./webpack.config');
 module.exports = merge(common, {
   mode: "development",
   devServer: {
-    port: 80,
+    port: 18000,
     proxy: {
       "/api/bing": {
         target: "http://www.bing.com/",
