@@ -1,4 +1,5 @@
 import React, {Suspense} from "react";
+import FABG from "../../components/FABG";
 
 const CommonLayout = (props) => {
   let pathnameArr = props.location.pathname.split(/\//g);
@@ -9,21 +10,9 @@ const CommonLayout = (props) => {
       <Suspense fallback={<div>loading...</div>}>
         <DynamicComponent />
       </Suspense>
-      <FloatButton />
+      <FABG></FABG>
     </div>
   );
 };
-
-
-const FloatButton = () => {
-  return (
-    <div
-      onClick={(e) => history.go(-1)}
-      className="exit floating-button react-style"
-    >
-      <span className="cross">+</span>
-    </div>
-  );
-}
 
 export default CommonLayout;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FABG from '@/components/FABG';
 
 export class CommonLayout extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export class CommonLayout extends Component {
     return (
       <>
         { Scenario ? <Scenario /> : null }
-        <FloatButton />
+        <FABG components={'back'}></FABG>
       </>
     );
   }
@@ -27,14 +28,6 @@ function getScene(pathname) {
       resolve(m.default ? m.default : m)
     })
   })
-}
-
-function FloatButton() {
-  return(
-    <div onClick={e => history.go(-1)} className='exit floating-button react-style'>
-      <span className='cross'>+</span>
-    </div>
-  )
 }
 
 export default CommonLayout;

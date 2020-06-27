@@ -39,15 +39,19 @@ const Dict = {
   code: CodeButton
 }
 const FABG = ({
-  components = ['forward', 'back'],
+  components = ['code', 'back'],
   size = 'middle',
   style = 'react-style',
   position = ['bottom', 'right']
-}) => {
+} = {}) => {
+  console.log(components)
   return (
     <section className='fabg-container bottom right'>
-      {
-        components.map(buttonKey => {
+      { !Array.isArray(components) && (()=> {
+          let Component = Dict[components];
+          return <Component key={Dict[components]} className={[size, style]} ></Component>
+        })() }
+      { Array.isArray(components) && components.map(buttonKey => {
           const Component = Dict[buttonKey];
           if (Component === undefined) throw 'unmatched buttonkey : ' + buttonKey
           return <Component key={buttonKey} className={[size, style]} ></Component>

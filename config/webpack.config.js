@@ -146,6 +146,20 @@ module.exports = {
           },
         ],
       },
+      /** less loader */
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "less-loader",
+          },        ]
+      },
       /** img loader */
       {
         test: /\.(png|jpg|gif|obj)$/,

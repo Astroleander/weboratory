@@ -1,4 +1,5 @@
 import React from 'react';
+import FABG from '@/components/FABG'
 export default class AlgoLayout extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +44,7 @@ export default class AlgoLayout extends React.Component {
           {func_key && this.state[func_key] && this.state['inputs'] && this.renderResults(func_key)}
         </div>
       )}
-      <FloatButton />
+      <FABG components={'back'}></FABG>
       </>
     )
   }
@@ -95,24 +96,5 @@ export default class AlgoLayout extends React.Component {
       newer[idx] = val;
     }
     this.setState({ inputs: newer });
-  }
-}
-
-class FloatButton extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      rotateDeg: 45
-    }
-  }
-  handleBack() {
-    history.go(-1);
-  }
-  render() {
-    return (
-      <div onClick={this.handleBack} className='exit floating-button react-style'>
-        <span className='cross'>+</span>
-      </div>
-    )
   }
 }

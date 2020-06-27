@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import FABG from '../components/FABG';
 /**
  * TODO: router needs abstract
  */
@@ -41,6 +42,7 @@ const loadComponent = (route, rule = (url) => url.split('#')[1] || '' + '/index.
 
   return <React.Suspense fallback={<div>loading...</div>}>
     <Component></Component>
+    <FABG components={['code', 'back']}></FABG>
   </React.Suspense>
 }
 
