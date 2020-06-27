@@ -1,0 +1,58 @@
+@import './FABG-compoents.less';
+@import './FABG-style.less';
+
+@directions: top, right, bottom, left;
+.make-directions(@i: 0) when (@i < length(@directions)) {
+  @item: extract(@directions, @i);
+  /** real styles here */
+  .fabg-container.@{item} {
+    @{item}: 0px;
+  }
+  .make-directions(@i+1)
+}
+.make-directions();
+
+.fabg-container {
+  &.bottom, &.top, &.left, &.right { position: fixed; }
+  overflow: hidden;
+  right: 0px;
+  display: flex;
+  padding: 20px;
+}
+
+.fabg-button {
+  @normal-size: 35px;
+  &.middle, &.normal {
+    width: @normal-size;
+    height: @normal-size;  
+    line-height: @normal-size;
+  }
+
+  text-align: center;
+  margin-left: 20px;
+  border: none;
+  z-index: 9999;
+  // defualt style
+  border-radius: 50%;
+  background: #ffc107;
+  box-shadow: 0px 4px 6px #212121AA;
+  transition: 0.15s all;
+
+  cursor: pointer;
+  outline: none;
+
+  transition: 0.15s all;
+
+  &:active {
+    background: #333;
+    color: #999;
+    transition: 0.15s all;
+  }
+
+  * {
+    font-family: 'Roboto';
+    user-select: none;
+    text-align: center;
+    margin: 0;
+  }
+}
