@@ -1,0 +1,9 @@
+hr.spx{
+  background: linear-gradient(0deg, transparent 25%, #212121 50%, transparent 75%);
+}
+hr {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 15%, #DADADA 50%, transparent 85%);
+  border: none;
+  margin: 1.5em 0;  
+}
