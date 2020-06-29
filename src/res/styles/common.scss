@@ -59,6 +59,7 @@ article {
 }
 .home {
   li {
+    cursor: pointer;
     list-style: none;
     padding-left: 8px;
     margin: 1px 2px;
@@ -101,8 +102,9 @@ article {
 .vue-global-nav-link,
 .react-global-nav-link {
   // position: absolute;
+  display: inline-block;
   margin: 0px 4px 0px 4px;
-  font-size: 1.2em;
+  font-size: 1em;
   font-family: Roboto, serif;
   text-decoration: none;
   color: #212121;
