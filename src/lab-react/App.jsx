@@ -1,7 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import FABG from '../components/FABG';
+import Nav from '../components/GlobalNavigation.jsx'
+const MainPage = () => {
+  /** 路由表 */
+  const [routes, setRoutes] = useState(undefined);
+  useEffect(() => {
+    if (!routes) setRoutes(loadLabViews(require.context('./views/', true, /index.jsx$/, 'lazy')));
+    return () => {
+    }
+  }, [])
+  return (
+    <article id='algorithm-home' className='home'>
+      <Nav />
+      {routes && routes.map(views => <li key={views.path} onClick={() => go(views.path)}><a>{views.path}</a></li>)}
+    </article>
+  )
+}
+
+
 /**
- * TODO: router needs abstract
+ * TODO: router needs exstract out
  */
 
 const loadLabViews = (r) => r.keys().map(path => {
@@ -19,21 +37,6 @@ const go = (link) => {
   window.location.hash = link;
   /** [ 👇 notice ] pushState wouldn't trigger event listener */
   // window.history.pushState({}, null, location.pathname.split('#')[0] + '#' + link);
-}
-
-const MainPage = () => {
-  /** 路由表 */
-  const [routes, setRoutes] = useState(undefined);
-  useEffect(() => {
-    if (!routes) setRoutes(loadLabViews(require.context('./views/', true, /index.jsx$/, 'lazy')));
-    return () => {
-    }
-  }, [])
-  return (
-    <section id='algorithm-home' className='home'>
-      {routes && routes.map(views => <li key={views.path} onClick={() => go(views.path)}><a>{views.path}</a></li>)}
-    </section>
-  )
 }
 
 const loadComponent = (route, rule = (url) => url.split('#')[1] || '' + '/index.jsx') => {
