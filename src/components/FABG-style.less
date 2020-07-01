@@ -1,16 +1,22 @@
 .fabg-button {
-    &.react-style {
-        background: #212121;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.react-style {
+      background: #212121;
+      color: #61DBFB;
+      svg {
+        fill: #61DBFB;
+      }
+      .cross {
         color: #61DBFB;
+      }    
+      &:active {
+        background: #61DBFB;
         .cross {
-          color: #61DBFB;
-        }    
-        &:active {
-          background: #61DBFB;
-          .cross {
-            color: #212121;
-          }
+          color: #212121;
         }
-    
+      }
+  
     };
 }
