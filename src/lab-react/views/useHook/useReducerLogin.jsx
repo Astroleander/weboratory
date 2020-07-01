@@ -27,7 +27,6 @@ const loginReducer = (state, action) => {
         pwd: "",
       };
     case "success":
-      console.log(action)
       return {
         ...state,
         name: action.info.name,
