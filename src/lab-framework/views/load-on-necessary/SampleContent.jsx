@@ -6,7 +6,7 @@ class SampleContent extends Component {
     super(props);
     this.state = {
       count: 0,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
     this.interval = null;
   }

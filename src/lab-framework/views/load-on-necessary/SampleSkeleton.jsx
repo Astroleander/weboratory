@@ -7,7 +7,7 @@ const initialState = {
   count: 0
 }
 
-export default function SampleSkeleton() {  
+export default function SampleSkeleton() {
   const [state, dispatch] = useReducer((state, timestamp) => {
     return {
       count: state.count + ((timestamp - state.timestamp)/1000),
