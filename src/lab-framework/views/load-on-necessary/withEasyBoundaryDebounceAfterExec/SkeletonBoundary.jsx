@@ -12,11 +12,9 @@ const debounce = (fn, delay) => {
   }
 };
 const _checkPending = (ctx) => {
-  console.log(ctx)
+  console.log('fire')
   const values = ctx.observerObject.observerList.values();
-  console.log(values)
   Array.from(values).forEach(el => {
-    console.log(el.isIntersecting)
     if (el.isIntersecting) {
       ctx.setState({ pending: true })
     }
@@ -50,8 +48,8 @@ export default class SkeletonBoundary extends React.Component {
     this.observerObject.observer = new IntersectionObserver(entries => this.intersectionChangeCallback(entries), this.observerOptions)
     this.observerObject.observer.observe(this.wrapper)
   }
-  shouldComponentUpdate(prev) {
-    return this.state.pending !== this.props.pending 
+  shouldComponentUpdate(prevP, prevS) {
+    return this.state.pending !== prevS.pending 
   }
   renderContent() {
     const { children, fallback } = this.props;
