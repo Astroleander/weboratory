@@ -9,3 +9,6 @@ dist/
 
 # typescript
 *.d.ts
+
+# gitconfig
+.gitconfig
