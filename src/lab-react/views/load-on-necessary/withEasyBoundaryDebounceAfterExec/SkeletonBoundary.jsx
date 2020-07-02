@@ -48,8 +48,9 @@ export default class SkeletonBoundary extends React.Component {
     this.observerObject.observer = new IntersectionObserver(entries => this.intersectionChangeCallback(entries), this.observerOptions)
     this.observerObject.observer.observe(this.wrapper)
   }
+  
   shouldComponentUpdate(prevP, prevS) {
-    return this.state.pending !== prevS.pending 
+    return this.state.pending !== prevS.pending;
   }
   renderContent() {
     const { children, fallback } = this.props;
