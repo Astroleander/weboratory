@@ -16,7 +16,7 @@ class Entry extends Component {
   render() {
     return (
       <div>
-        <h1>with Easy Boundary</h1>
+        <h1>with Boundary setting Debounce and threshold</h1>
         {
           this.state.renderers.map((render, idx) => {
             return (

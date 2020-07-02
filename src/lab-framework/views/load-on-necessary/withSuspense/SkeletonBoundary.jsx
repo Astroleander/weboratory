@@ -4,18 +4,37 @@ import SampleSkeleton from "../SampleSkeleton";
 class SkeletonBoundary extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      pending: false
+    }
+    this.wrapper = null;
+    this.observer = null;
   }
 
-  /** 用纯组件的话 因为在 map 里, 会始终接收到不一致的 prop, 然后无限使组件重新渲染 */
-  shouldComponentUpdate(prev) {
-    return prev.isRender !== this.props.isRender;
+  shouldComponentUpdate(prevProps, prevState) {
+    return prevState.pending !== this.state.pending
   }
-
+ 
+  componentDidMount() {
+    this.observer = new IntersectionObserver((entris) => {
+      entris.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.setState({
+            pending: true
+          })
+        }
+      })
+    }, {
+      root: null
+    });
+    this.observer.observe(this.wrapper)
+  }
+ 
   render() {
     const Children = React.lazy(() => new Promise(
       async r => {
         await new Promise(r2 => {
-          if(this.props.isRender === true) r2()
+          if(this.state.pending === true) r2()
         })
         /** 自己实现的自由度可以不局限于 import(modules) */
         r(import('../SampleContent'))
@@ -23,11 +42,12 @@ class SkeletonBoundary extends Component {
     ))
     const Skeleton = () => this.props.Skeleton || <SampleSkeleton />
     return (
-      <> {
-        (<Suspense fallback={<Skeleton></Skeleton>}>
+      <div ref={el => {this.wrapper = el}}> {(
+        <Suspense fallback={<Skeleton></Skeleton>}>
           <Children></Children>
-        </Suspense>)
-      } </>
+        </Suspense>
+        )} 
+      </div>
     )
   }
 }
