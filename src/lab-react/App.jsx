@@ -45,7 +45,7 @@ const loadComponent = (route, rule = (url) => url.split('#')[1] || '' + '/index.
 
   return <React.Suspense fallback={<div>loading...</div>}>
     <Component></Component>
-    <FABG components={['code', 'back']}></FABG>
+    <FABG></FABG>
   </React.Suspense>
 }
 
