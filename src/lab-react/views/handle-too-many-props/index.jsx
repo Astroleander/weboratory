@@ -18,7 +18,7 @@ const PropsEater = props => {
     {
       Object.keys(props).map(propKey => {
       return <p className='no-margin' key={JSON.stringify(propKey)}>{propKey}: {JSON.stringify(props[propKey])}</p>
-      })  
+      })
     }
   </div>
 }
