@@ -2,6 +2,10 @@ import React from 'react'
 import Sample from './views/SampleChild'
 import viewList from './views';
 
+/**
+ * @description 
+ * 
+ */
 export default function index() {
   return (
     <article>
