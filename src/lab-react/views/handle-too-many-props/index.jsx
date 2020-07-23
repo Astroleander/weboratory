@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+// TODO : we need a common mock maven;
 const form = {
   name: 'abalili',
   email: 'abalili@elephant.com',
@@ -6,43 +7,31 @@ const form = {
   address: 'No.10 of Coco Street',
   fool: true,
   fruit: { apple: 'ipple', orange: 'orcange' }
-}
+};
 const formAddons = {
-  fruit: { apple: 'bpple', banana: 'yellow'},
+  fruit: { apple: 'bpple', banana: 'yellow' },
   address: 'Another',
   newProps: 123,
-}
-/* ==========压缩 props========== */
-const PropsEater = props => {
-  return <div>
-    {
-      Object.keys(props).map(propKey => {
-      return <p className='no-margin' key={JSON.stringify(propKey)}>{propKey}: {JSON.stringify(props[propKey])}</p>
-      })
-    }
-  </div>
-}
+};
 
-/* =========mixin props========= */
-const PropsWrapper = props => {
-  let clone = React.cloneElement(props.children, formAddons)
-  return (<div>
-    {clone}
-  </div>)
-}
+/* child component - print all its props */
+const PropsPrinter = props => (<>{
+  Object.keys(props).map(propKey => {
+    return <p className='no-margin' key={JSON.stringify(propKey)}>{propKey}: {JSON.stringify(props[propKey])}</p>
+  })
+}</>);
 
 export default function Index() {
+
   return (
-    <div style={{fontSize: '0.6em'}}>
+    <div style={{ fontSize: '0.6em' }}>
       <h1>PropsEater</h1>
-      <PropsEater name={form.name} email={form.email} password={form.password} address={form.address}></PropsEater>
+      {/* 参数太长 */}
+      <PropsPrinter name={form.name} email={form.email} password={form.password} address={form.address}></PropsPrinter>
       <hr />
-      <PropsEater {...form} ></PropsEater>
+      {/* 使用 rest 语法批发参数, 其会按照先后顺序覆盖 props */}
+      <PropsPrinter email='front-email' {...form} {...formAddons} name='end-name'></PropsPrinter>
       <hr />
-      <h1>PropsWrapper</h1>
-      <PropsWrapper>
-        <PropsEater {...form} />
-      </PropsWrapper>
     </div>
   )
 }
