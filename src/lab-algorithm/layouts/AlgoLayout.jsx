@@ -1,5 +1,5 @@
 import React from 'react';
-import FABG from '@/components/FABG'
+import FABG from '@/components/FABG';
 export default class AlgoLayout extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +44,7 @@ export default class AlgoLayout extends React.Component {
           {func_key && this.state[func_key] && this.state['inputs'] && this.renderResults(func_key)}
         </div>
       )}
-      <FABG components={'back'}></FABG>
+      <FABG />
       </>
     )
   }

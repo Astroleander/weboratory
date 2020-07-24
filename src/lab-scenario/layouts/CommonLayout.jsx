@@ -12,10 +12,10 @@ export class CommonLayout extends Component {
   }
   render() {
     const Scenario = this.state.component
-    return (
+    return Scenario && (
       <>
-        { Scenario ? <Scenario /> : null }
-        <FABG components={'back'}></FABG>
+        <Scenario />
+        <FABG />
       </>
     );
   }
@@ -25,9 +25,9 @@ function getScene(pathname) {
   console.log(pathname)
   return new Promise(resolve => {
     import('@/lab-scenario' + pathname).then(m => {
-      resolve(m.default ? m.default : m)
-    })
-  })
+      resolve(m.default ? m.default : m);
+    });
+  });
 }
 
 export default CommonLayout;

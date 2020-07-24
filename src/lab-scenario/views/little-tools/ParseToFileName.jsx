@@ -12,23 +12,24 @@ const handleClick = (e) => {
     }
   })
 }
+
 const ThesisNameToFileName = () => {
   const [title, setTitle] = useState('');
   const titleStyle = {
     background: 'pink',
     padding: '0 .4em',
-  }
+  };
   const inputStyle = {
     boxSizing: 'border-box',
     width: '98%',
     height: '3em',
     padding: '0 .4em',
     margin: '0 1%'
-  }
+  };
   return (<>
     <input style={inputStyle} type='input' onChange={e => setTitle(parseToFileName(e.target.value))}></input>
     <p style={titleStyle} onClick={e => handleClick(e)}>{title}</p>
-  </>)
+  </>);
 }
 
 export default ThesisNameToFileName;
