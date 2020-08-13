@@ -11,7 +11,7 @@ function importAll(prefix, r) {
   });
 }
 
-importAll('leetcode', require.context('@/snippet/algorithm/leetcode', true, /.js$/, 'lazy'));
+importAll('leetcode', require.context('@/snippet/algorithm/leetcode', true, /.[j|t]s$/, 'lazy'));
 importAll('ds', require.context('@/snippet/algorithm/ds', true, /.ts$/, 'lazy'));
 
 export default page_lists
