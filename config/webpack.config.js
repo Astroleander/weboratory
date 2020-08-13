@@ -106,7 +106,7 @@ module.exports = {
           },
         },
       },
-      /** tsx loader */
+      /** ts 文件绕行 ts-loader, 不进行 babel 转译 */
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
