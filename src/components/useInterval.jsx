@@ -8,11 +8,15 @@ const useInterval = (callback, delay) => {
   }, [callback]);
   /* set up the interval */
   useEffect(() => {
+    console.log('delay changed!',delay)
     function tick() {
       savedCallback.current();
     }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
+    let id;
+    if (delay === null) {
+      clearInterval(id)
+    } else {
+      id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
   }, [delay]);
