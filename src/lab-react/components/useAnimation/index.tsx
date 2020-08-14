@@ -1,6 +1,7 @@
 
 import React from 'react';
 import * as Eases from './ease';
-import {useAnimation, useAnimationFrame, useAnimationTimer} from './useAnimation';
+import { useAnimationFrame } from './useAnimationFrame';
+import { useAnimationTimer } from './useAnimationTimer';
 
-export {useAnimation, useAnimationFrame, useAnimationTimer, Eases}
+export {useAnimationFrame as useAnimation , useAnimationFrame, useAnimationTimer, Eases}

@@ -1,10 +1,13 @@
 import { useAnimationTimer, useAnimationFrame } from "../../components/useAnimation";
 import React, { PropsWithChildren, useEffect } from "react";
+import { useTimer } from "../../components/useAnimation/useTimer";
 
 interface AnimationController {
   duration: number;
   delay: number;
-  ease: (x: number) => number;
+  ease?: (x: number) => number;
+  max_fps?: number;
+  callback?: (x: number) => void;
 }
 
 const AnimationWrapper = ({
@@ -12,9 +15,10 @@ const AnimationWrapper = ({
   duration,
   delay,
   ease,
+  max_fps
 }: PropsWithChildren<AnimationController>) => {
-  let v = useAnimationTimer(duration, delay, ease);
-  let v2 = useAnimationFrame(duration, delay, ease);
+  let v = useAnimationTimer(duration, delay, ease, max_fps);
+  let v2 = useAnimationFrame(duration, delay, ease, max_fps);
 
   return (
     <div style={{
