@@ -131,38 +131,44 @@ module.exports = {
         },
       },
       /** css loader */
+      /**
+       * CSS-Modules Recommendations:
+       * use '[path][name]__[local]' for development
+       * use '[hash:base64]' for production
+       */
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [
+          { loader: MiniCssExtractPlugin.loader }, 
+          { 
+            loader: "css-loader",
+            options: { modules: { auto: true, localIdentName: '[local]-[hash:12]' } },
+          }
+        ],
       },
       /** sass loader */
       {
         test: /\.s[a|c]ss$/,
         use: [
-          {
-            loader: "style-loader",
-          },
+          { loader: "style-loader" },
           {
             loader: "css-loader",
+            options: { modules: { auto: true, localIdentName: '[local]-[hash:12]' } },
           },
-          {
-            loader: "sass-loader",
-          },
+          { loader: "sass-loader", },
         ],
       },
       /** less loader */
       {
         test: /\.less$/,
         use: [
-          {
-            loader: "style-loader",
-          },
+          { loader: "style-loader" },
           {
             loader: "css-loader",
+            options: { modules: { auto: true, localIdentName: '[local]-[hash:12]' } },
           },
-          {
-            loader: "less-loader",
-          },        ]
+          { loader: "less-loader" },
+        ]
       },
       /** img loader */
       {
