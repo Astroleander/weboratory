@@ -1,47 +1,44 @@
+import './index.css';
+
 /**
- * 如果不设置入口文件的话,
- * webpack 会自动查找设置 ./src/index.js 作为入口文件，
- * 并在 ./dist/main.js 吐出 bundle,
- * 
- * 这是 webpack 4 的 zero configuration 特色，
- * 但是注意其只限于
- * 1. 默认入口 在 ./src/index.js
- * 2. 默认输出 到 ./dist/main.js
- * 3. 默认 production 和 development 模式
- * 
- * 👆 0 配置太傻了, 我们使用 /config 下的 webpack 配置指向各个入口
- * [ Note at 2020.06.17 👆 ] 这个文件已经不在 ./src 下了，上面的零配置说明需要说明了需要在相应目录下
+ * process.env 是可枚举的，但是在 Chrome 里并不会打印任何东西 
  */
-import './index.css'
-// TODO: process.env 似乎是不可枚举的?
-if (process.env.NODE_ENV !== 'production') {
-  console.log('[home][index.js] Dev Mode!')
+if (process?.env?.NODE_ENV !== 'production') {
+  console.log('[home][index.js] Dev Mode!');
+  console.log(Object.getOwnPropertyDescriptors(process))
 }
 
+/**
+ * 
+ */
 animateBubble();
 animateWater();
 analyzeCatelog();
 
 function animateBubble() {
-  let e = document.getElementsByClassName('bubble-in-flask')
-  for (let index = 0; index < e.length; index++) {
-    let el = e[index]
-    let speed = 1 / el.r.baseVal.value
-    setInterval(() => {
+  function animateFrameBubble() {
+    let e = document.getElementsByClassName('bubble-in-flask')
+    for (let index = 0; index < e.length; index++) {
+      let el = e[index]
+      let speed = 1 / el.r.baseVal.value
       // 30 差不多在瓶口
       el.cy.baseVal.value < 30 ?
-        el.cy.baseVal.value = 100 : el.cy.baseVal.value -= speed
-    }, 10)
-
+      el.cy.baseVal.value = 100 
+      :
+      el.cy.baseVal.value -= speed
+    }
+    requestAnimationFrame(animateFrameBubble);
   }
+  animateFrameBubble();
 }
 
 function animateWater() {
-  let p = document.getElementsByClassName('waterline-in-flask')
+  let p = document.getElementsByClassName('waterline-in-flask');
 }
 
 function analyzeCatelog() {
   let catelogue = document.getElementById('catelogue')
+  /** Provide by DefinePlugin */
   ENTRIES.forEach(name => {
     let el = document.createElement('a');
     el.classList.add('link');

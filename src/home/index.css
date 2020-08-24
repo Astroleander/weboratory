@@ -16,13 +16,15 @@
 
 #catelogue {
   background: linear-gradient(270deg, 
-  #3f51b1 0%, #5a55ae 13%, #7b5fac 25%, #8f6aae 38%,
-  #a86aa4 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%
+    #ffc107 0%, #f7c978 10%, #EAA 13%, #f18271 25%, #e22007 38%,
+    #f7c978 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%
   );
   background-size: 400% 400%;
   animation: gradient-animator 15s ease infinite;
   background-clip: text;
+  color: #ffc107;
   -webkit-background-clip: text;
+  filter: drop-shadow(8px 8px 12px #FFC10744);
 }
 
 @keyframes gradient-animator {
@@ -63,7 +65,13 @@
 }
 
 .waterline-in-flask {
+  opacity: 0.9;
   animation: animation-waterline-in-flask 0.5s infinite alternate-reverse;
+}
+
+.waterline-in-flask-shadow {
+  opacity: 0.6;
+  animation: animation-waterline-in-flask 0.5s 0.25s infinite alternate-reverse;
 }
 
 @keyframes animation-waterline-in-flask {
