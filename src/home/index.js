@@ -1,12 +1,13 @@
 import './index.css';
 
 /**
- * process.env 是可枚举的，但是在 Chrome 里并不会打印任何东西 
+ * process.env 是可枚举的，但是在 Chrome 里并不会打印任何东西
+ * [ future ] process 在 Webpack 5 中将被移除
  */
-if (process?.env?.NODE_ENV !== 'production') {
-  console.log('[home][index.js] Dev Mode!');
-  console.log(Object.getOwnPropertyDescriptors(process))
-}
+// if (process?.env?.NODE_ENV !== 'production') {
+//   console.log('[home][index.js] Dev Mode!');
+//   console.log(Object.getOwnPropertyDescriptors(process))
+// }
 
 /**
  * 

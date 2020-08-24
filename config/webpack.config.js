@@ -8,6 +8,8 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 
 const { VueLoaderPlugin } = require("vue-loader");
 const { DefinePlugin } = require("webpack");
+
+/** 构造入口对象, 填充数据到 entryList 以后递交给 HTMLWebpackPlugin 处理 */
 const entryList = {
   output: (name) => `./${name}/index.html`,
   names: fs.readdirSync(path.resolve("src")),
@@ -15,25 +17,27 @@ const entryList = {
   HTMLWebpackPlugins: [],
   alias: {},
 };
+
 entryList.names = entryList.names.filter((name) => name.substring(0, 4) === "lab-");
 entryList.names.forEach((name) => {
   entryList.entries[name] = [`./src/${name}/index.js`];
   entryList.alias[`@${name.substring(4)}`] = path.join(__dirname, "..", "src", name);
   entryList.HTMLWebpackPlugins.push(
     new HTMLWebpackPlugin({
-      /** [ 👇特性 ] 在 .html 中使用 <%= [htmlWebpackPlugin.options.xxxx] %> 来使用自定义变量, 代价是不能使用 html-loader */
-      /** [ 🥊竞争 ] html-loader 同样有自己的方案, 你可以选择任意的模板语法, 然后使用 preprocessor 来处理你的模板 @see https://webpack.js.org/loaders/html-loader/#templating*/
+      /** [ 👇 特性 ] 在 .html 中使用 <%= [htmlWebpackPlugin.options.xxxx] %> 来使用自定义变量, 代价是不能使用 html-loader */
+      /** [ 🥊 竞争 ] html-loader 同样有自己的方案, 你可以选择任意的模板语法, 然后使用 preprocessor 来处理你的模板 @see https://webpack.js.org/loaders/html-loader/#templating */
       name,
       id: name.replace(/^lab/, 'laboratory'),
       // template: `./src/${name}/index.html`,
       template: `./template.html`,
       filename: entryList.output(name),
       chunks: ["config", "general", `${name}`],
-      hash: true,
+      contenthash: true,
       minify: { collapseInlineTagWhitespace: true },
     })
   );
 });
+
 module.exports = {
   /**
    * an absolute path, for resolving entry points and loaders from configuration.
@@ -59,8 +63,8 @@ module.exports = {
     // home: ['./src/home/index.js', './config/weboratory.general.js'],
   },
   output: {
-    filename: "[name].bundle.[hash:6].js",
-    chunkFilename: "chunk.[id].[hash:6].js",
+    filename: "[name].bundle.[contenthash:6].js",
+    chunkFilename: "chunk.[id].[contenthash:6].js",
     path: path.resolve(__dirname, "../dist"),
     pathinfo: true,
   },
@@ -78,12 +82,12 @@ module.exports = {
       template: "./src/home/index.html",
       filename: "./index.html",
       chunks: ["config", "general", "home"],
-      hash: true,
+      contenthash: true,
       minify: { collapseInlineTagWhitespace: true },
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[hash:6].css",
-      chunkFilename: "chunk.css.[id].[hash:6].css",
+      filename: "[name].[contenthash:6].css",
+      chunkFilename: "chunk.css.[id].[contenthash:6].css",
     }),
     new VueLoaderPlugin(),
     new BundleAnalyzerPlugin({
@@ -185,7 +189,7 @@ module.exports = {
         test: /\.(eot|woff|woff2|ttf)$/,
         loader: "file-loader",
         options: {
-          name: "[name].[ext]?[hash]",
+          name: "[name].[ext]?[contenthash]",
         },
       },
       /** yaml loader */
