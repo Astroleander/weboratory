@@ -1,6 +1,5 @@
 import { useAnimationTimer, useAnimationFrame } from "../../components/useAnimation";
-import React, { PropsWithChildren, useEffect } from "react";
-import { useTimer } from "../../components/useAnimation/useTimer";
+import React, { PropsWithChildren } from "react";
 
 interface AnimationController {
   duration: number;
