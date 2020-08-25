@@ -1,6 +1,9 @@
 {
+  "root": true,
   "parserOptions": {
-    "ecmaVersion": 2018,
+    /** String.prototype.matchAll, import, BigInt, Promise.allSettled, globalThis, for-in mechanics, optional chain, nullish coalescing */
+    "ecmaVersion": 2020,
+    // "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
@@ -17,5 +20,14 @@
         "no-unused-expressions": "off"
       }
     }
-  ]
+  ],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@", "./src"]
+        ]
+      }
+    }
+  }
 }

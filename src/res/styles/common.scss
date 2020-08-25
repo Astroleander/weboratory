@@ -19,11 +19,27 @@ body {
   padding: 0px 0px;
 }
 
-h1 { font-size: 1.5rem;}
+p {  
+  margin: 0px 0px;
+  padding: 0px 0px;
+}
+h1, h2, h3, h4, h5 {
+  font-family: 'Noto Serif SC';
+  margin: 0.2em 0; 
+}
+h1 { font-size: 1.50rem; font-weight: bold;}
 h2 { font-size: 1.34rem; opacity: 0.9;}
 h3 { font-size: 1.20rem; opacity: 0.8;}
 h4 { font-size: 1.10rem; opacity: 0.7;}
 h5 { font-size: 1.05rem; opacity: 0.6;}
+.inline-hgroup {
+  // display: inline;
+  * {
+    display: inline;
+    vertical-align: middle;
+    margin: 0 6px 0 0;
+  }
+}
 
 /* 修复底边留白的问题，默认是 baseline 模式会导致底部有白线 */
 img {
@@ -172,4 +188,8 @@ article {
 
 .no-margin {
   margin: 0 0 0 0 !important;
+}
+
+pre.short {
+  white-space: pre-line;
 }

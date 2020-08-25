@@ -1,0 +1,17 @@
+.matched {
+  background: rgba(255, 0, 0, 0.3);
+}
+.bigcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 6px;
+  gap: 6px;
+}
+.bigcase > p, .bigcase > div{
+  width: auto;
+  background: #f3f3f3;
+  padding: 12px;
+}
+.bigcase .number {
+  overflow-x: scroll;
+}
