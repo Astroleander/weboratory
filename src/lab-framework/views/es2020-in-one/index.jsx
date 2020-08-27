@@ -119,11 +119,6 @@ export const Dynamic_Import = () => {
   </>);
 };
 
-const myGlobalThis = () => {
-  if (typeof self !== 'undefined') { return self }
-  else if (typeof window !== 'undefined') { return window }
-  else if (typeof global !== 'undefined') { return global };
-};
 export const GlobalThis = () => {
   return (
     <>
@@ -134,7 +129,7 @@ const myGlobalThis = () => {
   else if (typeof global !== 'undefined') { return global }
   throw new Error('unknown global');
 }
-return myGlobalThis() === window === globalThis;
+return myGlobalThis() === globalThis;
       `}
       </CodeSample>
     </>
