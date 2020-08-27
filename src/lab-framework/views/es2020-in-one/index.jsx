@@ -111,8 +111,8 @@ export const Dynamic_Import = () => {
 
   let Module = module && moduleName && module[moduleName];
   return (<>
-    <button onClick={e => handleChange('MatchAll', setModuleName)}>MatchAll</button>
-    <button onClick={e => handleChange('BigIntSample', setModuleName)}>BigIntSample</button>
+    <button onClick={e => handleChange('String_MatchAll', setModuleName)}>MatchAll</button>
+    <button onClick={e => handleChange('BigInt_Sample', setModuleName)}>BigIntSample</button>
     <button onClick={e => handleChange(null, setModuleName)}>null</button>
     {Module !== null && <Module />}
     <br />
