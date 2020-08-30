@@ -121,6 +121,17 @@ module.exports = {
         test: /\.vue$/,
         use: "vue-loader",
       },
+      /** svelte loader */
+      {
+        test: /\.svelte$/,
+        use: {
+          loader: "svelte-loader",
+          options: {
+            hotReload: true,
+            emitCss: true,
+          }
+        }
+      },
       /** html loader */
       {
         test: /\.html$/,
@@ -130,19 +141,36 @@ module.exports = {
           options: { minimize: false },
         },
       },
-      /** css loader */
       /**
-       * CSS-Modules Recommendations:
-       * use '[path][name]__[local]' for development
-       * use '[hash:base64]' for production
+       * css loader -> MiniCssExtractPlugin.loader
+       * css-modules is opening for "xxx.module.style"
+       *
+       * [ 📐 compare ] MiniCssExtractPlugin.loader
+       *              + @see https://webpack.js.org/plugins/mini-css-extract-plugin/
+       *              + extracts css into ⚠separate files, It creates a CSS file per JS file which contains CSS. It supports On-Demand-Loading of CSS and SourceMaps.
+       *
+       * [ 📐 compare ] style loader
+       *              + @see https://webpack.js.org/loaders/style-loader/
+       *              + Inject CSS into the DOM, create inline style
+       *
+       * [ 📐 compare ] vue style loader
+       *              + @see https://github.com/vuejs/vue-style-loader
+       *              + a fork of style loader, support SSR and replace type option with automatically picking
+       *
+       * [ 📐 compare ] css loader
+       *              + @see https://webpack.js.org/loaders/css-loader/
+       *              + interpret css in `@import` and `url` like js in `import/require()` and will resolve them
+       *
+       * [ 📐 compare ] scss/less loader
+       *              + compile scss/less to CSS
        */
       {
         test: /\.css$/,
         use: [
-          { loader: MiniCssExtractPlugin.loader }, 
-          { 
+          { loader: MiniCssExtractPlugin.loader },
+          {
             loader: "css-loader",
-            options: { modules: { auto: true, localIdentName: '[local]-[hash:12]' } },
+            options: { modules: { auto: true, localIdentName: '[local]-[contenthash:12]' } },
           }
         ],
       },
@@ -153,7 +181,7 @@ module.exports = {
           { loader: "style-loader" },
           {
             loader: "css-loader",
-            options: { modules: { auto: true, localIdentName: '[local]-[hash:12]' } },
+            options: { modules: { auto: true, localIdentName: '[local]-[contenthash:12]' } },
           },
           { loader: "sass-loader", },
         ],
@@ -165,7 +193,7 @@ module.exports = {
           { loader: "style-loader" },
           {
             loader: "css-loader",
-            options: { modules: { auto: true, localIdentName: '[local]-[hash:12]' } },
+            options: { modules: { auto: true, localIdentName: '[local]-[contenthash:12]' } },
           },
           { loader: "less-loader" },
         ]

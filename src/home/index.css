@@ -1,30 +1,29 @@
-/* 使用预加载 */
-#catelogue,#logo,#laboratory {
-  display: flex;
-  justify-items: center;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  flex-wrap: wrap;
-}
-
 #laboratory {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
   flex-direction: column;
   height: 100vh;
   width: 100vw;
 }
 
 #catelogue {
-  background: linear-gradient(270deg, 
+  display: grid;
+  width: 100%;
+  grid-gap: 16px;
+  padding: 16px;
+  color: transparent;
+  background: linear-gradient(270deg,
     #ffc107 0%, #f7c978 10%, #EAA 13%, #f18271 25%, #e22007 38%,
     #f7c978 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%
   );
   background-size: 400% 400%;
   animation: gradient-animator 15s ease infinite;
-  background-clip: text;
-  color: #ffc107;
   -webkit-background-clip: text;
-  filter: drop-shadow(8px 8px 12px #FFC10744);
+  background-clip: text;
+  /* color: #ffc107; */
+  /* filter: drop-shadow(8px 8px 12px #FFC10744); */
 }
 
 @keyframes gradient-animator {
@@ -60,25 +59,48 @@
 @media screen and (min-height: 600px) {
   .link {
     padding: 15px 20px;
-    font-size: 1.8em;  
+    font-size: 1.8em;
   }
 }
 
-.waterline-in-flask {
-  opacity: 0.9;
-  animation: animation-waterline-in-flask 0.5s infinite alternate-reverse;
+.fragment-card {
+  transition: transform 0.2s ease-in-out;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  height: 30vh;
+  outline: 2px solid black;
+}
+.fragment-card:visited {
+  color: transparent;
 }
 
-.waterline-in-flask-shadow {
-  opacity: 0.6;
-  animation: animation-waterline-in-flask 0.5s 0.25s infinite alternate-reverse;
+#catelogue {
+  grid-template-columns: repeat(4, 1fr);
 }
-
-@keyframes animation-waterline-in-flask {
-  from{
-      d: path('m0,50 h30 C50,30 50,72 70,50 h25 v50 H0');
+@media (max-width: 1300px) {
+  #catelogue {
+    grid-template-columns: repeat(3, 1fr);
   }
-  to{
-      d: path('m0,50 h30 C50,68 50,25 70,50 h25 v50 H0');
+}
+@media (max-width: 750px) {
+  #catelogue {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+@media (max-width: 400px) {
+  #catelogue {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.showcase, .title {
+  flex: 1 0 auto;
+}
+.showcase {
+  background: #EEE;
+  height: 65%;
+}
+.title {
+  height: 35%;
 }

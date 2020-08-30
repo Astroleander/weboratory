@@ -1,50 +1,68 @@
 import './index.css';
+import { loaderMapping } from "./loader";
 
-/**
- * process.env 是可枚举的，但是在 Chrome 里并不会打印任何东西
- * [ future ] process 在 Webpack 5 中将被移除
- */
-// if (process?.env?.NODE_ENV !== 'production') {
-//   console.log('[home][index.js] Dev Mode!');
-//   console.log(Object.getOwnPropertyDescriptors(process))
-// }
+const showcaseMap = new Map();
+require.context('./', false, /fragment/,'lazy').keys()
+  .filter(v => v.substring(2).includes('.'))
+  .forEach(key => {
+    key = key.substring(2);
+    showcaseMap.set(key.toLowerCase().substring(8).replace(/\..*/, ''), key);
+  });
 
-/**
- * 
- */
-animateBubble();
-animateWater();
-analyzeCatelog();
-
-function animateBubble() {
-  function animateFrameBubble() {
-    let e = document.getElementsByClassName('bubble-in-flask')
-    for (let index = 0; index < e.length; index++) {
-      let el = e[index]
-      let speed = 1 / el.r.baseVal.value
-      // 30 差不多在瓶口
-      el.cy.baseVal.value < 30 ?
-      el.cy.baseVal.value = 100 
-      :
-      el.cy.baseVal.value -= speed
+const findFragmentPath = (name) => {
+  const keys = Array.from(showcaseMap.keys());
+  for (let index = 0; index < Array.from(keys).length; index++) {
+    if (name.includes(keys[index])) {
+      return showcaseMap.get(keys[index]);
     }
-    requestAnimationFrame(animateFrameBubble);
-  }
-  animateFrameBubble();
+  } 
 }
 
-function animateWater() {
-  let p = document.getElementsByClassName('waterline-in-flask');
+const importComponent = (path, target) => {
+  import(`./${path}`).then(m => {
+    const component_code = m.default || m;
+
+    for (const [rule, load] of loaderMapping) {
+      if (rule.test(path)) {
+        let result = load(component_code);
+        target.append(result);
+      }
+    }
+  });
 }
 
-function analyzeCatelog() {
-  let catelogue = document.getElementById('catelogue')
-  /** Provide by DefinePlugin */
-  ENTRIES.forEach(name => {
-    let el = document.createElement('a');
-    el.classList.add('link');
-    el.href = name;
-    el.innerHTML = name.replace(/^\w*?-/, '').toUpperCase()
-    catelogue.appendChild(el)
-  })
+const createShowcase = (name) => {
+  const container = document.createElement('div');
+  container.classList.add('showcase');
+  
+  const fragment_path = findFragmentPath(name);
+  if (fragment_path) { importComponent(fragment_path, container); }
+  // container.innerHTML = brief;
+
+  return container;
 }
+
+const createTitle = (name) => {
+  const group = document.createElement('div');
+  const primary = document.createElement('a');
+  primary.classList.add('link');
+  primary.innerHTML = name.replace(/^\w*?-/, '').toUpperCase();
+  group.append(primary)
+  group.classList.add('title');
+  return group;
+}
+
+/** Provide by DefinePlugin */
+ENTRIES.forEach(name => {
+  const showcase = createShowcase(name);
+  const navtitle = createTitle(name);
+
+  const card = document.createElement('a');
+  card.id = name;
+  card.className = 'fragment-card';
+  card.href = name;
+  card.append(showcase);
+  card.append(navtitle);
+  
+  document.getElementById('catelogue').append(card);
+});

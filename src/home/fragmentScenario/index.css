@@ -1,0 +1,85 @@
+#logo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+#flask-wrapper {
+  height: 100%;
+  /* padding: 16px; */
+  position: relative;
+}
+
+#flask {
+  position: relative;
+  z-index: 100;
+  height: 100%;
+  padding: 16px;
+}
+.waterline-in-flask {
+  opacity: 0.9;
+  animation: animation-waterline-in-flask 0.5s infinite alternate-reverse;
+}
+
+.waterline-in-flask-shadow {
+  opacity: 0.6;
+  animation: animation-waterline-in-flask 0.5s 0.25s infinite alternate-reverse;
+}
+
+#background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.bk-top {
+  /* animation: animation-bk-top 0.5s 0.25s infinite alternate-reverse; */
+}
+
+.bk-middle {
+  /* animation: animation-bk-middle 0.7s 0.11s infinite alternate-reverse; */
+}
+
+.bk-bottom {
+  /* animation: animation-bk-bottom 1.1s 0.7s infinite alternate-reverse; */
+}
+
+@keyframes animation-waterline-in-flask {
+  from{
+      d: path('m0,50 h30 C50,30 50,72 70,50 h25 v50 H0');
+  }
+  to{
+      d: path('m0,50 h30 C50,68 50,25 70,50 h25 v50 H0');
+  }
+}
+
+@keyframes animation-bk-top {
+  from {
+    d: path('m0,0 V66 C16,22 33,44 50,33 S83,44 100,33 L100,0 H-100 Z')
+  }
+  to {
+    d: path('m0,0 V66 C16,44 33,22 50,33 S83,22 100,33 L100,0 H-100 Z')
+  }
+}
+
+@keyframes animation-bk-middle {
+  from {
+    d: path('m0,33 C16,11 33,44 50,33 S83,44 100,33 v33 c-16,55 -33,77 -50,66 S-25,77 0,66 Z')
+  }
+  to {
+    d: path('m0,33 C16,44 33,22 50,33 S83,22 100,33 v33 c-16,55 -33,77 -50,66 S-25,77 0,66 Z')
+  }
+}
+
+@keyframes animation-bk-bottom {
+  from {
+    d: path('m0,66 C16,55 33,77 50,66 S83,77 100,67 L100,100 H-100 Z')
+  }
+  to {
+    d: path('m0,66 C16,77 33,55 50,66 S83,33 100,67 L100,100 H-100 Z')
+  }
+}
+
