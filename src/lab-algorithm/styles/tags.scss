@@ -2,11 +2,11 @@
   border-radius: 1px;
   padding: 0 .4rem;
   margin-right: .2rem;
-  box-shadow: 0 0 .2em gray;
+  box-shadow: 0 0 .2em #d1d1d1;
   cursor: pointer;
   user-select: none;
-  &:active {
-    box-shadow: .1em .1em .4em darkgray;
+  &:hover {
+    box-shadow: .1em .1em 1em darkgray;
   }
 }
 @mixin tag-mixer($color, $background) {
@@ -23,7 +23,7 @@
 ('bf', white, #212121),
 ('slidingwindow', white, #ff9800),
 ('tree', white, #558b2f),
-('special', #EFEFEF, #CDCDCD),
+('special', white, #CDCDCD),
 {
   .tag-#{$name} {
     @include tag-mixer($color, $background)
@@ -31,7 +31,7 @@
 }
 
 .tag-clear {
-  text-shadow: 1px 1px 2px black;
+  text-shadow: 1px 1px 2px #212121;
 }
 
 input[type=input] {
