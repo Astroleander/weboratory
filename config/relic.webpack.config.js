@@ -50,7 +50,7 @@ module.exports = {
     pathinfo: true,
   },
   resolve: {
-    extensions: [".js", ".json", ".vue", ".jsx"],
+    extensions: [".js", ".json", ".vue", ".jsx", ".svelte"],
     alias: {
       "@": path.join(__dirname, "..", "src"),
       "@graphics": path.join(__dirname, "..", "src", "lab-graphics"),
