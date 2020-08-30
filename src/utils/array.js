@@ -3,6 +3,11 @@ const ArrayUtils = {
     return array
   },
 
+  /**
+   * random pick n elements from an array
+   * @param {*} array 
+   * @param {*} n 
+   */
   randomSelect(array, n = 1) {
     let m = array.length;
     let select = [];
@@ -13,6 +18,7 @@ const ArrayUtils = {
         select.push(array[each])
         n--;
       }
+      /** insure select */
       m--;
     }
     return select;
