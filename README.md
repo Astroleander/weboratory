@@ -11,14 +11,14 @@ Divide into 4 part:
 # Run
 + dependics:
 ```
-node 8.6+
+node 10.6+
 ```
 + script:
 ```
 npm install
 npm run dev
 ```
-and project runs on [localhost:80](http://localhost/)
+and project runs on [localhost:18000](http://localhost/18000)
 # Resource
 ## Matcaps
 https://www.pixelfondue.com/blog/30matcaps, *Available until 2019/12/12*.
@@ -32,8 +32,8 @@ https://www.pinterest.jp/evayali/matcap/, *Available until 2019/12/12*
 
 # TODO List
 + [ ] linear tranfromation visulization
-+ [ ] human maker
++ [x] [50%] human maker
 + [ ] stock crawler
-+ [ ] all hooks
++ [x] [20%] all hooks —— `useAnimation` is pretty good ~
 + [ ] space rocket cop.
 + [ ] IMPLEMENTING DOMAIN-DRIVEN DESIGN
