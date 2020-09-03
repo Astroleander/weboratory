@@ -12,9 +12,12 @@ const outputStyle = {
 }
 
 const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-export default function CodeSample(props: any) {
-  const children = props.children;
+const GeneratorFunction = Object.getPrototypeOf(function*(){}).constructor;
+
+export function CodeSample(props: any) {
+  const { children } = props;
   if (!children) return null;
+  
   const [prev, setTrigger] = useState(props);
   if (props !== prev) {
     setTrigger(props)
@@ -52,3 +55,60 @@ export default function CodeSample(props: any) {
     </>
   )
 }
+
+export function MultCodeSample(props: any) {
+  const { children } = props;
+  if (!children) return null;
+  
+  const [prev, setTrigger] = useState(props);
+  if (props !== prev) {
+    setTrigger(props)
+  }
+
+  const [result, setResult] = useState<string[]>([]);
+  'none of any result ...'
+  useEffect(() => {
+    const params = ["set", "update", ...Object.keys(props), children];
+    const asyncExec = async () => {
+      try {
+        const func = new GeneratorFunction(...params);
+        const gen = func();
+
+        let is_gen_done = false;
+        while (!is_gen_done) {
+          const { value, done } = await gen.next();
+          setResult(p => {
+            return p.concat([value]);
+          });
+          is_gen_done = done;
+        }
+        setResult(p => p)
+      } catch (e) {
+        console.error(e);
+        setResult(['LAB ERROR: live function is broken']);
+      }
+    }
+    asyncExec();
+  }, [prev]);
+
+  return (
+    <>
+      {
+        React.Children.map(children ,(c) => {
+          return (<div>
+            <pre className={props.long ? "" : "short"}>{c}</pre>
+            {
+              result.map((each, idx) =>
+                <pre style={outputStyle} key={idx}>
+                  {JSON.stringify(each)}
+                </pre>
+              )
+            }
+          </div>);
+        })
+      }
+    </>
+  );
+}
+
+export default CodeSample;
