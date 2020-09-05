@@ -47,7 +47,7 @@ export function CodeSample(props: any) {
       {
         React.Children.map(children ,(c) => {
           return (<div>
-            <pre className={props.long ? "" : "short"}>{c}</pre>
+            <pre className={props.long ? "" : "short"}>{c.trimStart()}</pre>
             <pre style={outputStyle}>{JSON.stringify(result)}</pre>
           </div>);
         })
@@ -77,6 +77,8 @@ export function MultCodeSample(props: any) {
         let is_gen_done = false;
         while (!is_gen_done) {
           const { value, done } = await gen.next();
+          if (!value) return;
+
           setResult(p => {
             return p.concat([value]);
           });
@@ -96,7 +98,7 @@ export function MultCodeSample(props: any) {
       {
         React.Children.map(children ,(c) => {
           return (<div>
-            <pre className={props.long ? "" : "short"}>{c}</pre>
+            <pre className={props.long ? "" : "short"}>{c.trimStart()}</pre>
             {
               result.map((each, idx) =>
                 <pre style={outputStyle} key={idx}>
