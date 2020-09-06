@@ -5,7 +5,7 @@ import styles from './index.module.css';
 import { Sub } from '../../components/CodeSection';
 
 const initVal = () => [Number.MAX_SAFE_INTEGER, BigInt(Number.MAX_SAFE_INTEGER)]
-export const BigInt_Sample = () => {
+export const BigInt__Sample = () => {
   const [number, setNumber] = useState(initVal());
   return (
     <>
@@ -38,7 +38,7 @@ export const BigInt_Sample = () => {
   );
 };
 
-export const AllSettled = () => {
+export const Promise_allSettled = () => {
   return <>
     <CodeSample>
     {/* javascript */`
@@ -57,7 +57,7 @@ export const AllSettled = () => {
 };
 
 const string = `Cursus et aliquet egestas scelerisque himenaeos nullam himenaeos eros habitant iaculis donec eget ali ullamcorper id a et lacinia praesent nisl senectus metus parturient. A suspendisse nascetur vestibulum dui sem faucibus hac ullamcorper vestibulum adipiscing ipsum mauris ali eleifend dis adipiscing fringilla facilisis habitasse scelerisque.`;
-export const String_MatchAll = () => {
+export const String_matchAll = () => {
   const [value, setValue] = useState('ali');
   const [match, setMatch]= useState([]);
   useEffect(() => {
@@ -97,7 +97,7 @@ const handleChange = (e, set) => {
   console.log(e)
   set(e);
 };
-export const Dynamic_Import = () => {
+export const Dynamic__Import = () => {
   const [module, setModule] = useState(null);
   const [moduleName, setModuleName] = useState(null);
 
@@ -119,7 +119,7 @@ export const Dynamic_Import = () => {
   </>);
 };
 
-export const GlobalThis = () => {
+export const Global__This = () => {
   return (
     <>
       <CodeSample long>{/* javascript */`// standardize
@@ -136,21 +136,21 @@ return myGlobalThis() === globalThis;
   )
 };
 
-export const Nullish_Coalescing = () => {
+export const Nullish__Coalescing = () => {
   return (<CodeSample>{/* javascript */`
     return window.location.i_do_not_care ?? 'Not found'
   `}
   </CodeSample>);
 };
 
-export const Optional_Chaining = () => {
+export const Optional__Chaining = () => {
   return (<CodeSample>{/* javascript */`
     return window.location?.i_do_not_care?.what_the_punk_i_am || 'sure be nothing'
   `}
   </CodeSample>);
 };
 
-export const ForIn_Mechanics = () => {
+export const ForIn__Mechanics = () => {
   return (<>
     <cite>
       the different engines have agreed on how properties are iterated when using the {<code>for (a in b)</code>} control structure so that the behavior is standardized.

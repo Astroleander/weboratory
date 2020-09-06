@@ -11,7 +11,7 @@ export const Sub = ({ component, name }) => {
   return (
   <section key={name}>
     <hgroup className={"inline-hgroup"}>
-      <h1>📓 {name.replace('_', " ")}</h1>
+      <h1>{name.replace(/__/g, " ").replace(/_/g, ".")}</h1>
       <button onClick={() => { toggleCswitch(false); setTimeout(()=>toggleCswitch(true),10)}}>reload</button>
     </hgroup>
     {cswitch ? <Component /> : Copy.current}
