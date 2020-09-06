@@ -30,8 +30,9 @@ export function CodeSample(props: any) {
       try {
         let func = new AsyncFunction(...params);
         let result = await func(setResult, setResult, ...Object.values(props));
-        if (result !== null || result !== undefined) { setResult(result); }
-        else {
+        if (result !== null || result !== undefined) { 
+          setResult(result); 
+        } else {
           setResult('done but nothing return');
         }  
       } catch (e) {
@@ -98,11 +99,11 @@ export function MultCodeSample(props: any) {
       {
         React.Children.map(children ,(c) => {
           return (<div>
-            <pre className={props.long ? "" : "short"}>{c.trimStart()}</pre>
+            <pre className={!props.long ? "" : "short"}>{c.trimStart()}</pre>
             {
               result.map((each, idx) =>
                 <pre style={outputStyle} key={idx}>
-                  {JSON.stringify(each)}
+                  {JSON.stringify(each) || ' '}
                 </pre>
               )
             }
