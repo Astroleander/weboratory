@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from 'react'
-
-const runStyle = {
-  color: '#212121',
-  marginTop: '24px'
-}
-
-const outputStyle = {
-  padding: '12px',
-  background: '#EAEAEA',
-  borderRadius: '2px',
-}
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import cls from 'classnames';
 
 const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
 const GeneratorFunction = Object.getPrototypeOf(function*(){}).constructor;
@@ -49,7 +40,7 @@ export function CodeSample(props: any) {
         React.Children.map(children ,(c) => {
           return (<div className='fragment'>
             <pre className={props.format ? "" : "short"}>{c.trimStart()}</pre>
-            <pre style={outputStyle}>{JSON.stringify(result)}</pre>
+            <pre className={styles.output}>{JSON.stringify(result)}</pre>
           </div>);
         })
       }
@@ -101,7 +92,7 @@ export function MultCodeSample(props: any) {
             <pre className={props.format !== undefined && !props.format ? "short" : ""}>{c.trimStart()}</pre>
             {
               result.map((each, idx) =>
-                <pre style={outputStyle} key={idx}>
+                <pre className={styles.output} key={idx}>
                   {JSON.stringify(each) || ' '}
                 </pre>
               )
@@ -112,5 +103,31 @@ export function MultCodeSample(props: any) {
     </>
   );
 }
+
+type RegProps = { regexp: RegExp, tests: Array<string> };
+export function RegSample(props: React.PropsWithChildren<RegProps>) {
+  const { tests, regexp } = props;
+  if (tests)
+  useEffect(() => {
+    0
+  }, [regexp]);
+  return (
+  <section className={styles.regWrapper}>
+    <pre className={styles.reg}>{ String(regexp) }</pre>
+    <div className={styles.tests}>
+      {
+        tests.map((each, idx) =>
+          <pre 
+            className={regexp.test(each) ? cls(styles.output, styles.regTrue) :  cls(styles.output, styles.regFalse)}
+            key={idx}
+          >
+            {each}
+          </pre>
+        )
+      }
+    </div>
+  </section>
+  );
+};
 
 export default CodeSample;

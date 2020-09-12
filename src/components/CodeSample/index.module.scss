@@ -1,0 +1,40 @@
+.output {
+  padding: 12px;
+  background: #EAEAEA;
+  border-radius: 2px;
+}
+
+.regWrapper {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  border: grey dashed 2px;
+  margin: 8px 0;
+  .reg {
+    font-size: 4em;
+    font-family: consolas, monospace;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    line-height: 100%;
+    text-align: center;
+  }
+  .tests {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .output {
+      flex-grow: 1;
+      min-width: 200px;
+      margin: 3px 12px;
+    }
+  }
+}
+
+.regTrue {
+  background: #c5e1a5;
+}
+
+.regFalse {
+  background: #ef9a9a;
+}
