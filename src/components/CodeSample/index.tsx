@@ -107,13 +107,13 @@ export function MultCodeSample(props: any) {
 type RegProps = { regexp: RegExp, tests: Array<string> };
 export function RegSample(props: React.PropsWithChildren<RegProps>) {
   const { tests, regexp } = props;
-  if (tests)
+
   useEffect(() => {
     0
   }, [regexp]);
   return (
   <section className={styles.regWrapper}>
-    <pre className={styles.reg}>{ String(regexp) }</pre>
+    <pre className={styles.reg}>{ regexp.toString() }</pre>
     <div className={styles.tests}>
       {
         tests.map((each, idx) =>
