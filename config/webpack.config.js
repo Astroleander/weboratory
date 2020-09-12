@@ -143,7 +143,7 @@ module.exports = {
       },
       /**
        * css loader -> MiniCssExtractPlugin.loader
-       * css-modules is opening for "xxx.module.style"
+       * css-modules is opening for "xxx.module.xxx"
        *
        * [ 📐 compare ] MiniCssExtractPlugin.loader
        *              + @see https://webpack.js.org/plugins/mini-css-extract-plugin/
