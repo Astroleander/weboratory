@@ -159,7 +159,19 @@ its also a syntactic sugar that will compile like that:
 );
 };
 
-
+export const Named__Capture__Group = () => (
+<>
+<MultCodeSample>
+{/* javascript */`
+const reg = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/g;
+const matchObj = reg.exec('2009-07-28');
+yield matchObj.groups.year;
+yield matchObj.groups.month;
+yield matchObj.groups.day;
+`}
+</MultCodeSample>
+</>
+);
 
 export default function View() {
   return (<>{
