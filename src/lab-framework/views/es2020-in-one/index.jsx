@@ -122,7 +122,7 @@ export const Dynamic__Import = () => {
 export const Global__This = () => {
   return (
     <>
-      <CodeSample long>{/* javascript */`// standardize
+      <CodeSample format>{/* javascript */`// standardize
 const myGlobalThis = () => { 
   if (typeof self !== 'undefined') { return self }
   else if (typeof window !== 'undefined') { return window }

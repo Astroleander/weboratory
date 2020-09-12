@@ -47,8 +47,8 @@ export function CodeSample(props: any) {
     <>
       {
         React.Children.map(children ,(c) => {
-          return (<div>
-            <pre className={props.long ? "" : "short"}>{c.trimStart()}</pre>
+          return (<div className='fragment'>
+            <pre className={props.format ? "" : "short"}>{c.trimStart()}</pre>
             <pre style={outputStyle}>{JSON.stringify(result)}</pre>
           </div>);
         })
@@ -60,7 +60,6 @@ export function CodeSample(props: any) {
 export function MultCodeSample(props: any) {
   const { children } = props;
   if (!children) return null;
-  
   const [prev, setTrigger] = useState(props);
   if (props !== prev) {
     setTrigger(props)
@@ -69,26 +68,26 @@ export function MultCodeSample(props: any) {
   const [result, setResult] = useState<string[]>([]);
   'none of any result ...'
   useEffect(() => {
-    const params = ["set", "update", ...Object.keys(props), children];
+    const params = ["set", "next", ...Object.keys(props), children];
     const asyncExec = async () => {
       try {
         const func = new GeneratorFunction(...params);
-        const gen = func();
+        const gen = func(setResult, (newone:string) => setResult(p => p.concat([newone])));
 
         let is_gen_done = false;
         while (!is_gen_done) {
           const { value, done } = await gen.next();
-          if (!value) return;
+          if (value === undefined) return;
 
           setResult(p => {
             return p.concat([value]);
           });
           is_gen_done = done;
         }
-        setResult(p => p)
+        setResult(p => p);
       } catch (e) {
         console.error(e);
-        setResult(['LAB ERROR: live function is broken']);
+        setResult(['LAB ERROR: live function is broken: ' + String(e)]);
       }
     }
     asyncExec();
@@ -98,8 +97,8 @@ export function MultCodeSample(props: any) {
     <>
       {
         React.Children.map(children ,(c) => {
-          return (<div>
-            <pre className={!props.long ? "" : "short"}>{c.trimStart()}</pre>
+          return (<div className='fragment'>
+            <pre className={props.format !== undefined && !props.format ? "short" : ""}>{c.trimStart()}</pre>
             {
               result.map((each, idx) =>
                 <pre style={outputStyle} key={idx}>

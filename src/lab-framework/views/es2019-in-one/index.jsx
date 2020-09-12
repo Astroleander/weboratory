@@ -88,7 +88,7 @@ export const String__trimStart__and__trimEnd = () => {
 }
 
 export const Optional__Catch = () => {
-  return (<CodeSample long>
+  return (<CodeSample format>
     {/* javascript */`
     // sample
       try {
@@ -119,7 +119,7 @@ export const Function_toString = () => {
 }
 
 export const Symbol_Description = () => {
-  return (<MultCodeSample long='false'>
+  return (<MultCodeSample format='false'>
     {/* javascript */`
       const symbol = Symbol('symbol_sample');
       yield symbol;
@@ -130,7 +130,7 @@ export const Symbol_Description = () => {
 }
 
 export const uft__support__and__more__for__JSON_Stringify = () => {
-  return (<MultCodeSample long='false'>
+  return (<MultCodeSample format='false'>
   {/* javascript */`
   // chrome will parse all unicode, its cannot display at webpage
     yield "\uD83D\uDE80"
