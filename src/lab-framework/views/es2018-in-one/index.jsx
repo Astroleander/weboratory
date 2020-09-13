@@ -1,7 +1,6 @@
 import React from 'react';
 
 import * as All from './';
-import styles from './index.module.css';
 
 import { RegSample, CodeSample, MultCodeSample } from "@/components/CodeSample";
 import { Sub } from '../../components/CodeSection';
