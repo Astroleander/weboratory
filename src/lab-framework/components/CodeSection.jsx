@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef, useLayoutEffect} from 'react';
+import './CodeSection.scss';
 
 /** wrapper */
 export const Sub = ({ component, name }) => {
