@@ -15,34 +15,38 @@ export default class AlgoLayout extends React.Component {
         /** copy each param */
         state[propertyName] = m.default[propertyName]
         /** parse name and params of function */
-        if (propertyName !== 'inputs') { /** 👈 means the property is the function (so our functions name can't be 'inputs') */
-          state['func_key'] = propertyName
+        if (propertyName.startsWith('__')) {
+          // no action
+        } else if (propertyName !== 'inputs') { /** 👈 means the property is the function (so our functions name can't be 'inputs') */
+          state['__func_key'] = propertyName
         } else { /** 👈 means the property is inputs */
-          state['inputs_type'] = [...module[propertyName].map(propertyName => typeof propertyName)]
+          state['__inputs_type'] = [...module[propertyName].map(propertyName => typeof propertyName)]
         }
       })
-      state['done'] = true;
+      state['__done'] = true;
       this.setState(state);
     })
   }
   /** 在参数加载完成之前不进行渲染，即不执行 render 中的 f 函数，避免莫名其妙的错误 */
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState['done']
+    return nextState['__done']
   }
   render() {
     /** [📖 review] precedence of Logic OR(||) is 5, and Logic AND(&&) is 6 */
-    let func_key = (this.state && this.state["func_key"]) || undefined;
+    let func_key = (this.state && this.state["__func_key"]) || undefined;
+    if (!func_key) return null;
     return (
       <>
       {(
-        <div>
-          <pre>{func_key && String(this.state[func_key])}</pre>
+        <>
+          <p>{this.renderDescriptions()}</p>
+          <pre>{String(this.state[func_key])}</pre>
           <hr />
           {/** delay timing of params render until function has loaded*/}
-          {func_key && this.state[func_key] && this.state['inputs'] && this.state['inputs_type'] && this.renderArgs()}
+          {this.state[func_key] && this.state['inputs'] && this.state['__inputs_type'] && this.renderArgs()}
           <hr />
-          {func_key && this.state[func_key] && this.state['inputs'] && this.renderResults(func_key)}
-        </div>
+          {this.state[func_key] && this.state['inputs'] && this.renderResults(func_key)}
+        </>
       )}
       <FABG />
       </>
@@ -57,7 +61,7 @@ export default class AlgoLayout extends React.Component {
             id={`args-${idx}`}
             value={this.state['inputs'][idx]}
             onChange={(e) => this.handleArgChange(e.target.value, idx, e)}
-            disabled={(this.state['inputs_type'][idx] === 'number' || this.state['inputs_type'][idx] === 'string' ? '' : 'disabled')}
+            disabled={(this.state['__inputs_type'][idx] === 'number' || this.state['__inputs_type'][idx] === 'string' ? '' : 'disabled')}
           />
           <label htmlFor={`arg-${idx}`}>
             <code>
@@ -79,9 +83,12 @@ export default class AlgoLayout extends React.Component {
       </div>
     )
   }
+  renderDescriptions() {
+    return this.state.__description ?? null;
+  }
   handleArgChange(val, idx, e) {
     let newer = this.state['inputs'];
-    if (this.state['inputs_type'][idx] === 'number') {
+    if (this.state['__inputs_type'][idx] === 'number') {
       /** 
        * 1. if string endswith '-' means user enter '-' just now
        * 2. currently, val is like 'xxx-', newer[idx] is the old value xxx (number)
