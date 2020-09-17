@@ -2,15 +2,18 @@
     display: grid;
 }
 
-.grid-2 { grid-template-columns: 1fr 1fr; }
-.grid-3 { grid-template-columns: 1fr 1fr 1fr; }
-.grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
-.grid-5 { grid-template-columns: repeat(6,1fr); }
-.grid-6 { grid-template-columns: repeat(6,1fr); }
-.grid-7 { grid-template-columns: repeat(7,1fr); }
+.grid-col-2 { grid-template-columns: 1fr 1fr; }
+.grid-col-3 { grid-template-columns: 1fr 1fr 1fr; }
+.grid-col-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
 
-@for $i from 8 through 20 {
-    .grid-#{$i}{
+@for $i from 5 through 20 {
+    .grid-col-#{$i}{
         grid-template-columns: repeat($i, 1fr);
+    }
+}
+
+@for $i from 1 to 20 {
+    .grid-row-#{$i}{
+        grid-template-rows: repeat($i, 1fr);
     }
 }
