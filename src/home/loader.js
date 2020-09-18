@@ -1,10 +1,16 @@
 import Vue from 'vue';
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+const CommonLoader = (name) => {
+  let Container = document.createElement('div');
+  Container.id = `${name}-sample`;
+  Container.style.height = '100%';
+  return Container;
+}
+
 export const svelteLoader = (Component, name) => {
-  let Container = document.createElement('section');
-  Container.id = name;
+  let Container = new CommonLoader(name);
   new Component({
     target: Container
   });
@@ -12,8 +18,7 @@ export const svelteLoader = (Component, name) => {
 };
 
 export const vueLoader = (Component, name) => {
-  let Container = document.createElement('section');
-  Container.id = name;
+  let Container = new CommonLoader(name);
 
   const app = new Vue({
     render: h => h(Component)
@@ -24,16 +29,14 @@ export const vueLoader = (Component, name) => {
 }
 
 export const reactLoader = (Component, name) => {
-  let Container = document.createElement('section');
-  Container.id = name;
+  let Container = new CommonLoader(name);
 
   ReactDOM.render(<Component />, Container);
   return Container;
 }
 
 export const pureLoader = (Component, name) => {
-  let Container = document.createElement('section');
-  Container.style.height = '100%'
+  let Container = new CommonLoader(name);
   return Component(Container);
 }
 

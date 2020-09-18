@@ -1,4 +1,4 @@
-import './index.css';
+import './styles/index.scss';
 import { loaderMapping } from "./loader";
 
 const showcaseMap = new Map();
@@ -18,13 +18,13 @@ const findFragmentPath = (name) => {
   } 
 }
 
-const importComponent = (path, target) => {
+const importComponent = (path, target, name) => {
   import(`./${path}`).then(m => {
     const component_code = m.default || m;
 
     for (const [rule, load] of loaderMapping) {
       if (rule.test(path)) {
-        let result = load(component_code);
+        let result = load(component_code, name);
         target.append(result);
       }
     }
@@ -36,8 +36,7 @@ const createShowcase = (name) => {
   container.classList.add('showcase');
   
   const fragment_path = findFragmentPath(name);
-  if (fragment_path) { importComponent(fragment_path, container); }
-  // container.innerHTML = brief;
+  if (fragment_path) { importComponent(fragment_path, container, name); }
 
   return container;
 }
@@ -57,8 +56,8 @@ ENTRIES.forEach(name => {
   const showcase = createShowcase(name);
   const navtitle = createTitle(name);
 
-  const card = document.createElement('a');
-  card.id = name;
+  const card = document.createElement('p');
+  card.id = `${name}-card`;
   card.className = 'fragment-card';
   card.href = name;
   card.append(showcase);

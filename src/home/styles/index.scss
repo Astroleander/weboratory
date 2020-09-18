@@ -13,15 +13,6 @@
   width: 100%;
   grid-gap: 16px;
   padding: 16px;
-  color: transparent;
-  background: linear-gradient(270deg,
-    #ffc107 0%, #f7c978 10%, #EAA 13%, #f18271 25%, #e22007 38%,
-    #f7c978 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%
-  );
-  background-size: 400% 400%;
-  animation: gradient-animator 15s ease infinite;
-  -webkit-background-clip: text;
-  background-clip: text;
   /* color: #ffc107; */
   /* filter: drop-shadow(8px 8px 12px #FFC10744); */
 }
@@ -40,6 +31,7 @@
   font-weight: thin;
   font-family: 'Roboto', sans-serif;
   text-decoration: none;
+  cursor: pointer;
 }
 .link:visited {
   color: transparent;
@@ -71,9 +63,18 @@
   text-decoration: none;
   height: 30vh;
   outline: 2px solid black;
+  transform: scale(0); 
 }
 .fragment-card:visited {
   color: transparent;
+}
+@keyframes fragment-card-show {
+  to {  transform: scale(1.0); }
+}
+@for $i from 0 to 20 {
+  .fragment-card:nth-child(#{$i}) {
+    animation: fragment-card-show 0.8s #{(($i - 1) % 4 + $i / 4) * 0.08}s forwards;
+  }
 }
 
 #catelogue {
@@ -103,4 +104,16 @@
 }
 .title {
   height: 35%;
+  color: transparent;
+  background: linear-gradient(270deg,
+    #ffc107 0%, #f7c978 10%, #EAA 13%, #f18271 25%, #e22007 38%,
+    #f7c978 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-animator 15s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+#lab-react-sample {
+  background-color: #1F232A;
 }
