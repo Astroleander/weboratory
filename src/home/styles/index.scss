@@ -5,16 +5,38 @@
   flex-wrap: wrap;
   flex-direction: column;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 }
 
-#catelogue {
+#catelogue, #preferlink {
   display: grid;
   width: 100%;
   grid-gap: 16px;
   padding: 16px;
   /* color: #ffc107; */
   /* filter: drop-shadow(8px 8px 12px #FFC10744); */
+}
+
+#catelogue, #preferlink {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1440px) {
+  #catelogue, #preferlink {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 960px) {
+  #catelogue, #preferlink {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  #catelogue, #preferlink {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 @keyframes gradient-animator {
@@ -24,9 +46,10 @@
 }
 
 .link {
+  display: inline-block;
+  padding: 2px 12px;
   transition: padding 0.4s ease, font-size 0.4s ease;
   color: transparent;
-  text-align: center;
   font-size: 2em;
   font-weight: thin;
   font-family: 'Roboto', sans-serif;
@@ -50,19 +73,20 @@
 }
 @media screen and (min-height: 600px) {
   .link {
-    padding: 15px 20px;
+    padding: 12px 20px;
     font-size: 1.8em;
   }
 }
 
 .fragment-card {
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.1s ease-in-out;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   text-decoration: none;
   height: 30vh;
-  outline: 2px solid black;
+  border-radius: 2px;
+  box-shadow: 2px 2px 10px #EEE;
   transform: scale(0); 
 }
 .fragment-card:visited {
@@ -73,34 +97,17 @@
 }
 @for $i from 0 to 20 {
   .fragment-card:nth-child(#{$i}) {
-    animation: fragment-card-show 0.8s #{(($i - 1) % 4 + $i / 4) * 0.08}s forwards;
+    animation: fragment-card-show 0.32s #{(($i - 1) % 4 + $i / 4) * 0.08}s forwards;
   }
 }
 
-#catelogue {
-  grid-template-columns: repeat(4, 1fr);
-}
-@media (max-width: 1300px) {
-  #catelogue {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (max-width: 750px) {
-  #catelogue {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 400px) {
-  #catelogue {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
 .showcase, .title {
   flex: 1 0 auto;
 }
 .showcase {
   background: #EEE;
   height: 65%;
+  overflow: hidden;
 }
 .title {
   height: 35%;

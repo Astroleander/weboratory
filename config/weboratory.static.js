@@ -4,3 +4,14 @@
 const STATIC = {
   PROJ: 'Weboratory',
 }
+
+const QLINKS = {
+  medium: {
+    url: 'https://medium.com/',
+    img: 'https://miro.medium.com/max/3840/1*J-PcIDrkewUmwrTZuJIIJA.jpeg'
+  },
+  github: {
+    url: 'https://github.com/',
+    img: 'https://github.githubassets.com/images/modules/explore/social.jpg'
+  }
+}

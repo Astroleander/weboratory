@@ -9,6 +9,12 @@ const CommonLoader = (name) => {
   return Container;
 }
 
+/**
+ * For Type Loader
+ * @param {type code} Component the export default file you writen in .xxx file
+ * @param {string} name 
+ */
+
 export const svelteLoader = (Component, name) => {
   let Container = new CommonLoader(name);
   new Component({
@@ -39,10 +45,22 @@ export const pureLoader = (Component, name) => {
   let Container = new CommonLoader(name);
   return Component(Container);
 }
+ 
+export const externalImgLoader = (url, name) => {
+  let Container = new CommonLoader(name);
+  const img = document.createElement('img');
+  img.src = url;
+  img.style.width = '100%';
+  img.style.height = '100%';
+  img.style.objectFit = 'cover';
+  Container.append(img)
+  return Container
+}
 
 export const loaderMapping = [
+  [/^http/, externalImgLoader],
   [/\.svelte$/, svelteLoader],
   [/\.vue$/, vueLoader],
   [/\.[j|t]sx$/, reactLoader],
-  [/\.js$/, pureLoader]
+  [/\.js$/, pureLoader],
 ];

@@ -9,6 +9,7 @@ require.context('./', false, /fragment/,'lazy').keys()
     showcaseMap.set(key.toLowerCase().substring(8).replace(/\..*/, ''), key);
   });
 
+
 const findFragmentPath = (name) => {
   const keys = Array.from(showcaseMap.keys());
   for (let index = 0; index < Array.from(keys).length; index++) {
@@ -18,25 +19,43 @@ const findFragmentPath = (name) => {
   } 
 }
 
+const loadComponentCode = (path, name, component_code) => {
+  for (const [rule, load] of loaderMapping) {
+    if (rule.test(path)) {
+      console.log(name, rule)
+      return load(component_code, name);
+    }
+  }
+}
+
 const importComponent = (path, target, name) => {
   import(`./${path}`).then(m => {
     const component_code = m.default || m;
-
-    for (const [rule, load] of loaderMapping) {
-      if (rule.test(path)) {
-        let result = load(component_code, name);
-        target.append(result);
-      }
-    }
+    let result = loadComponentCode(path, name, component_code)
+    target.append(result)
   });
 }
 
-const createShowcase = (name) => {
+const importImageWrapper = (img, target, name) => {
+  let result = loadComponentCode(img, name, img);
+  target.append(result);
+}
+
+const createShowcase = (
+  name, 
+  {
+    img = null
+  } = {}
+) => {
   const container = document.createElement('div');
   container.classList.add('showcase');
-  
-  const fragment_path = findFragmentPath(name);
-  if (fragment_path) { importComponent(fragment_path, container, name); }
+
+  if (!img) {
+    const fragment_path = findFragmentPath(name);
+    if (fragment_path) { importComponent(fragment_path, container, name); }  
+  } else {
+    importImageWrapper(img, container, name);
+  }
 
   return container;
 }
@@ -56,7 +75,7 @@ ENTRIES.forEach(name => {
   const showcase = createShowcase(name);
   const navtitle = createTitle(name);
 
-  const card = document.createElement('p');
+  const card = document.createElement('a');
   card.id = `${name}-card`;
   card.className = 'fragment-card';
   card.href = name;
@@ -65,3 +84,21 @@ ENTRIES.forEach(name => {
   
   document.getElementById('catelogue').append(card);
 });
+
+/** Provide by HTML injecting */
+Object.keys(QLINKS).forEach(name => {
+  const {url, img} = QLINKS[name];
+
+  const showcase = createShowcase(name, { img });
+  const navtitle = createTitle(name);
+
+  const card = document.createElement('a');
+  card.id = `${name}-card`;
+  card.className = 'fragment-card';
+  card.href = url;
+  card.target = "_blank"
+  card.append(showcase);
+  card.append(navtitle);
+  
+  document.getElementById('preferlink').append(card);
+})
