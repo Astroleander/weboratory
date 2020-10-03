@@ -9,6 +9,10 @@
       "jsx": true
     }
   },
+  "extends": [
+    "plugin:vue/vue3-essential",
+    "eslint:recommended"
+  ],
   "plugins": ["react-hooks"],
   "rules": {
     "react-hooks/rules-of-hooks": "error"

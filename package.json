@@ -12,6 +12,7 @@
   "author": "astroleander",
   "license": "MIT",
   "dependencies": {
+    "@vue/compiler-sfc": "^3.0.0",
     "gl-mat4": "^1.2.0",
     "pixi.js": "^5.3.3",
     "react": "^16.13.1",
@@ -21,9 +22,8 @@
     "redux": "^4.0.5",
     "svelte": "^3.25.0",
     "three": "^0.111.0",
-    "vue": "^2.6.12",
-    "vue-router": "^3.4.3",
-    "vue-template-compiler": "^2.6.12"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-beta.13"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.6",
@@ -65,7 +65,7 @@
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.7",
     "url-loader": "^3.0.0",
-    "vue-loader": "^15.9.3",
+    "vue-loader": "^16.0.0-beta.8",
     "webpack": "^4.44.1",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.12",

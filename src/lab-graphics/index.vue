@@ -1,29 +1,29 @@
 <template>
   <section class='home'>
-    <search-bar @updated='handleUpdated' :default-list='getKeywordSet'>
+    <search-bar @updated='handleUpdate' :default-list='getKeywordSet'>
     </search-bar>
     <div class='list'>
-      <template v-for="(view, idx) in getListViewFilter">
-        <li :key="idx">
-          <router-link :to="{ path: view.path, name: view.name }">
-            {{ generateName(view) }}
-          </router-link>
-        </li>
-      </template>
+      <li v-for="(view, idx) in getListViewFilter" :key="idx">
+        <router-link :to="{ path: view.path }">
+          {{ generateName(view) }}
+        </router-link>
+      </li>
     </div>
   </section>
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
+
 export default {
   components: {
     /** 要用 vue 中正确地使用 import 需要 syntax-dynamic-import 的支持 */
-    SearchBar: ()=> import('@/components/SearchBar.vue')
+    SearchBar: defineAsyncComponent(() => import('@/components/SearchBar.vue')),
   },
   mounted() {
     import('./router/view').then(module => {
-      console.log(module.default);
       this.view_list = module.default;
+      console.log(this.view_list);
     })
   },
   data() {
@@ -51,6 +51,8 @@ export default {
     getListViewFilter: function() {
       /** copy result to filter seq */
       let result = this.view_list;
+      console.log('getListViewFilter', this.selected)
+
       for (const idx in this.selected) {
         if (!result) return []
         // result.filter(e => {
@@ -62,7 +64,9 @@ export default {
     }
   },
   methods: {
-    handleUpdated: function(selected) {
+    handleUpdate: function(selected) {
+      // TODO？ 升级为vue以后，不修改为null就直接给selected赋值会有问题
+      this.selected = null;
       this.selected = selected;
     },
     generateName: function(view) {

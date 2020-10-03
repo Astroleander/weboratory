@@ -7,7 +7,7 @@ import CommonLayout from './layouts/CommonLayout';
 export default class AppScenario extends Component {
   render() {
     return (
-      <HashRouter>
+      <HashRouter base='/lab-scenario/'>
         <Switch>
           <Route
             path='/views'

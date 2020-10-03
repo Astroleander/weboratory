@@ -1,14 +1,15 @@
 console.log('[graphics][entry]', 'load ...');
 
-import Vue from 'vue';
+import { createApp } from 'vue';
 
 import router from './router';
+
 import app from './AppGraphics.vue';
 
 import './styles/common.scss'
 
-new Vue({
-  el: '#laboratory-graphics',
-  router,
-  render: h => h(app)
-});
+console.log(router.getRoutes())
+// window.router = router
+createApp(app)
+  .use(router)
+  .mount('#laboratory-graphics');

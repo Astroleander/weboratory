@@ -21,10 +21,12 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
+
 export default {
   components: {
     /** 要用 vue 中正确地使用 import 需要 syntax-dynamic-import 的支持 */
-    tag: () => import('@/components/buttons/ButtonNormal.vue')
+    tag: defineAsyncComponent(() => import('@/components/buttons/ButtonNormal.vue'))
   },
   props: ['defaultList'],
   mounted() {

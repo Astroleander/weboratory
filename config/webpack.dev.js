@@ -1,3 +1,4 @@
+const { DefinePlugin } = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.config');
 
@@ -23,5 +24,11 @@ module.exports = merge(common, {
         secure: false
       }
     }
-  }
+  },
+  plugins: [
+    new DefinePlugin({
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: true,
+    })
+  ]
 });

@@ -46,14 +46,15 @@ export default {
     this.initCanvas();
     this.initLight();
     this.initScene();
-    this.initUtils();
-    this.initCurves();
-    this.animate();
+    this.renderer.render(this.scene, this.camera);
+    // this.initUtils();
+    // this.initCurves();
+    // this.animate();
   },
   created() {
 
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.gui.destroy()
   },
   methods: {

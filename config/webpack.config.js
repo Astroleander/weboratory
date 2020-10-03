@@ -20,6 +20,7 @@ const entryList = {
 
 entryList.names = entryList.names.filter((name) => name.substring(0, 4) === "lab-");
 entryList.names.forEach((name) => {
+  console.log(name)
   entryList.entries[name] = [`./src/${name}/index.js`];
   entryList.alias[`@${name.substring(4)}`] = path.join(__dirname, "..", "src", name);
   entryList.HTMLWebpackPlugins.push(
@@ -28,7 +29,6 @@ entryList.names.forEach((name) => {
       /** [ 🥊 竞争 ] html-loader 同样有自己的方案, 你可以选择任意的模板语法, 然后使用 preprocessor 来处理你的模板 @see https://webpack.js.org/loaders/html-loader/#templating */
       name,
       id: name.replace(/^lab/, 'laboratory'),
-      // template: `./src/${name}/index.html`,
       template: `./template.html`,
       filename: entryList.output(name),
       chunks: ["config", "general", `${name}`],

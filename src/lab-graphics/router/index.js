@@ -1,37 +1,39 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-
-Vue.use(Router)
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 import BaseLayout from '@graphics/layout/BaseLayout.vue'
 import NavLayout from '@graphics/layout/NavLayout.vue'
 
 import ViewRoutes from './view'
 
-export const routes = [{
-    path: '',
+console.log(ViewRoutes)
+export const routes = [
+  {
+    path: '/views',
+    component: BaseLayout,
+    children: ViewRoutes
+  },
+  {
+    path: '/',
     component: NavLayout,
-    redirect: 'app',
+    redirect: to => {
+      console.log(to)
+      return 'app'
+    },
     children: [{
-      name: 'app',
       path: 'app',
       component: () => import('../index.vue'),
       meta: {
         name: 'index'
       }
     }]
-  },
-  {
-    path: '/views',
-    component: BaseLayout,
-    children: ViewRoutes
   }
 ]
 
-export default new Router({
-  // mode: 'history', // require server support
+const hash_mode = createWebHashHistory('/lab-graphics/')
+export default createRouter({
+  history: hash_mode,
   scrollBehavior: () => ({
-    y: 0
+    top: 0
   }),
   routes,
 })

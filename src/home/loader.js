@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { createApp, ref } from 'vue';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -26,11 +26,8 @@ export const svelteLoader = (Component, name) => {
 export const vueLoader = (Component, name) => {
   let Container = new CommonLoader(name);
 
-  const app = new Vue({
-    render: h => h(Component)
-  }).$mount();
-
-  Container.append(app.$el);
+  const app = createApp(Component);
+  app.mount(Container);
   return Container
 }
 
