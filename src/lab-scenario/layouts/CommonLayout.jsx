@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import FABG from '@/components/FABG';
 
 export class CommonLayout extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = { component: null };
   }
   componentDidMount(nextProps, prevState, snapshot) {
