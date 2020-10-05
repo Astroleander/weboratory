@@ -37,9 +37,9 @@ export default {
     getKeywordSet: function() {
       console.log('[getKeywordSet] start!', this.view_list)
       this.view_list.forEach(view => {
-        let size = view.meta.show_name.length;
-        return view.meta.show_name.forEach((word, idx) => {
-          if (idx !== size - 1 ) {
+        let size = view.meta.route_array.length;
+        return view.meta.route_array.forEach((word, idx) => {
+          if (idx < 2) {
             /** 文件路径的解析规则 */
             this.keyword_set.add(word);
           }
@@ -70,12 +70,19 @@ export default {
       this.selected = selected;
     },
     generateName: function(view) {
-      let size = view.meta.show_name.length;
-      let last;
-      return view.meta.show_name.map((word, idx) => {
-        if (idx !== size - 1 ) {
+      let size = view.meta.route_array.length;
+      if (view.meta.route_array[size - 1] === 'index') {
+        size --;
+      }
+      if (view.meta.route_array[size - 1] === 'view') {
+        size --;
+      }
+      return view.meta.route_array.map((word, idx) => {
+        if (idx < size - 1 ) {
           /** 文件路径的解析规则 */
-          return `[${word}] `
+          return `[${word.replace(/\./g, '] [')}] `
+        } else if (idx > size - 1) {
+          return ''
         } else {
           /** 文件名的解析规则 */
           return `${word.replace(/(.+?)\./, '[$1] ').replace(/\./g, ' . ').replace(/-/g, ' - ')}`
