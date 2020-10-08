@@ -16,14 +16,17 @@ import Hud from './view.hud'
 
 const drawType = (gl, type) => {
   const pointFloatArray = points;
-  const vertexBuffer = gl.createBuffer();
   gl.clearColor(0.1, 0.1, 0.1, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT);
 
+  /* 1. BIND DATA BUFFER */ 
+  const vertexBuffer = gl.createBuffer();
+
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, pointFloatArray, gl.STATIC_DRAW);
+  
+  /* 2. SET POINTERS OF DATA */
   const a_Position = gl.getAttribLocation(gl.program, 'a_Position');
-
   const a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
   gl.vertexAttrib1f(a_PointSize, 20.0);
   const u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
@@ -34,6 +37,7 @@ const drawType = (gl, type) => {
     1.0
   );
 
+  /* 3. LINK POINTER WITH BUFFER */
   gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(a_Position);
 
