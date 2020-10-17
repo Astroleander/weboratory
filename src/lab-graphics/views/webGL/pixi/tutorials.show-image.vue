@@ -28,6 +28,10 @@ export default {
       reimu.y = app.screen.height / 2;
 
       app.stage.addChild(reimu);
+      app.ticker.add((delta) => {
+          // 这里证明了之前那个 vue2 sample 转vue3以后特别卡是因为vue而不是pixi的原因
+          reimu.rotation += 0.1 * delta;
+      });
     });
     return {
       size,
