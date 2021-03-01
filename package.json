@@ -21,7 +21,7 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "svelte": "^3.29.0",
-    "three": "^0.111.0",
+    "three": "^0.125.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-beta.13"
   },
